@@ -103,32 +103,22 @@ FastAPI Backend (Python)
 
 Backend collectors read directly from `~/.hermes/` and return dataclasses. The frontend fetches from `/api/*` endpoints via SWR with auto-refresh and renders one panel component per tab.
 
-## Themes as CSS Variables
+## Token Cost Pricing
 
-Each theme is 10 CSS custom properties. To add a new theme:
+Costs are calculated from token counts using hardcoded per-model pricing. Supported models:
 
-```css
-[data-theme="my-theme"] {
-  --hud-bg-deep: #000;
-  --hud-bg-surface: #080808;
-  --hud-bg-panel: #101010;
-  --hud-bg-hover: #181818;
-  --hud-primary: #ff6600;
-  --hud-primary-dim: #cc5200;
-  --hud-primary-glow: rgba(255, 102, 0, 0.4);
-  --hud-secondary: #ffaa00;
-  --hud-accent: #ff3300;
-  --hud-text: #e0e0e0;
-  --hud-text-dim: #666;
-  --hud-border: rgba(255, 102, 0, 0.25);
-  --hud-border-bright: rgba(255, 102, 0, 0.5);
-  --hud-success: #00ff66;
-  --hud-warning: #ffcc00;
-  --hud-error: #ff3333;
-  --hud-gradient-start: #cc5200;
-  --hud-gradient-end: #ff6600;
-}
-```
+| Provider | Model | Input | Output | Cache Read |
+|----------|-------|------:|-------:|-----------:|
+| Anthropic | Claude Opus 4 | $15/M | $75/M | $1.50/M |
+| Anthropic | Claude Sonnet 4 | $3/M | $15/M | $0.30/M |
+| Anthropic | Claude Haiku 3.5 | $0.80/M | $4/M | $0.08/M |
+| OpenAI | GPT-4o | $2.50/M | $10/M | $1.25/M |
+| OpenAI | o1 | $15/M | $60/M | $7.50/M |
+| DeepSeek | V3 | $0.27/M | $1.10/M | $0.07/M |
+| xAI | Grok 3 | $3/M | $15/M | $0.75/M |
+| Google | Gemini 2.5 Pro | $1.25/M | $10/M | $0.31/M |
+
+Models not in the table fall back to Claude Opus pricing. Local/free models are detected and priced at $0.
 
 ## Relationship to the TUI
 
