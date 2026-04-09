@@ -76,9 +76,19 @@ if [ ! -d "$HERMES_DIR" ]; then
     echo ""
 fi
 
-# Install this package
+# Create virtual environment
+if [ ! -d "venv" ]; then
+    echo "→ Creating virtual environment..."
+    $PYTHON -m venv venv
+    echo "✔ Virtual environment created"
+else
+    echo "✔ Virtual environment exists"
+fi
+
+# Activate and install
 echo "→ Installing hermes-hudui..."
-$PYTHON -m pip install -e . -q
+source venv/bin/activate
+pip install -e . -q
 echo "✔ Backend installed"
 
 # Build frontend
@@ -97,8 +107,9 @@ echo "✔ Frontend built and deployed"
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "✔ Ready. Run:"
+echo "✔ Ready. To run:"
 echo ""
+echo "  source venv/bin/activate"
 echo "  hermes-hudui"
 echo ""
 echo "  Then open http://localhost:3001"

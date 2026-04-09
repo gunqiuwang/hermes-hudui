@@ -8,8 +8,11 @@ Thanks for your interest in contributing.
 git clone https://github.com/joeynyc/hermes-hudui.git
 cd hermes-hudui
 
+# Create and activate virtual environment
+python3.11 -m venv venv
+source venv/bin/activate
+
 # Install backend
-pip install hermes-hud
 pip install -e .
 
 # Install frontend

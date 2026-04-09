@@ -26,11 +26,20 @@ Everything your agent knows about itself:
 ```bash
 git clone https://github.com/joeynyc/hermes-hudui.git
 cd hermes-hudui
+python3.11 -m venv venv
+source venv/bin/activate
 ./install.sh
 hermes-hudui
 ```
 
 Open http://localhost:3001
+
+On future runs, just activate and start:
+
+```bash
+source venv/bin/activate
+hermes-hudui
+```
 
 ## Requirements
 
@@ -43,16 +52,20 @@ No other packages required — the Web UI reads directly from your agent's data 
 ## Manual Install
 
 ```bash
-# 1. Install this package
+# 1. Create and activate virtual environment
+python3.11 -m venv venv
+source venv/bin/activate
+
+# 2. Install this package
 pip install -e .
 
-# 2. Build the frontend
+# 3. Build the frontend
 cd frontend
 npm install
 npm run build
 cp -r dist/* ../backend/static/
 
-# 3. Start the server
+# 4. Start the server
 hermes-hudui
 ```
 
