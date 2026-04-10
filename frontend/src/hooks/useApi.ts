@@ -16,6 +16,7 @@ export function useApi<T = any>(path: string, refreshInterval = 30000) {
     dedupingInterval: 5000,
     errorRetryCount: 3,
     errorRetryInterval: 2000,
+    keepPreviousData: true, // Keep showing old data while fetching new data
     onError: (err) => {
       console.warn(`[HUD] ${path}: ${err.message}`)
     },
