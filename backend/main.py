@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 import argparse
+import logging
 import os
-import subprocess
 import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
@@ -31,14 +31,27 @@ from .api import (
     token_costs,
     cache,
 )
+from .file_watcher import start_watcher, stop_watcher
+from .websocket_manager import ws_manager
 
+logger = logging.getLogger(__name__)
 
 STATIC_DIR = Path(__file__).parent / "static"
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """Manage application lifespan: start/stop file watcher."""
+    # Startup
+    hermes_dir = os.environ.get("HERMES_HOME") or os.path.expanduser("~/.hermes")
+    await start_watcher(hermes_dir)
+    logger.info(f"Hermes HUD started, watching {hermes_dir}")
+
     yield
+
+    # Shutdown
+    await stop_watcher()
+    logger.info("Hermes HUD stopped")
 
 
 app = FastAPI(
@@ -53,6 +66,24 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    """WebSocket endpoint for real-time updates."""
+    await ws_manager.connect(websocket)
+    try:
+        while True:
+            # Keep connection alive, handle ping/pong
+            data = await websocket.receive_text()
+            # Echo back for heartbeat/ping
+            if data == "ping":
+                await websocket.send_text("pong")
+    except Exception:
+        pass
+    finally:
+        await ws_manager.disconnect(websocket)
+
 
 # API routes
 app.include_router(state.router, prefix="/api")

@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from 'react'
 import { ThemeProvider } from './hooks/useTheme'
 import { refreshAll } from './hooks/useApi'
+import { useWebSocket } from './hooks/useWebSocket'
 import TopBar, { type TabId, TABS } from './components/TopBar'
 import CommandPalette from './components/CommandPalette'
 import BootScreen from './components/BootScreen'
@@ -50,6 +51,9 @@ export default function App() {
   const [booted, setBooted] = useState(() => {
     return sessionStorage.getItem('hud-booted') === 'true'
   })
+  
+  // WebSocket for real-time updates
+  const { status: wsStatus } = useWebSocket()
 
   const handleBootComplete = useCallback(() => {
     setBooted(true)
@@ -90,7 +94,22 @@ export default function App() {
       {/* Status bar */}
       <div className="flex items-center justify-between px-3 py-0.5 text-[13px] border-t shrink-0"
            style={{ borderColor: 'var(--hud-border)', color: 'var(--hud-text-dim)', background: 'var(--hud-bg-surface)' }}>
-        <span>☤ hermes-hudui v0.1.0</span>
+        <span className="flex items-center gap-2">
+          ☤ hermes-hudui v0.1.0
+          {/* WebSocket status indicator */}
+          <span 
+            className="text-[10px] px-1.5 py-0.5 rounded"
+            style={{ 
+              background: wsStatus === 'connected' ? 'var(--hud-success)' : 
+                         wsStatus === 'connecting' ? 'var(--hud-warning)' : 'var(--hud-error)',
+              color: 'var(--hud-bg-deep)',
+              opacity: 0.8
+            }}
+            title={wsStatus === 'connected' ? 'Live updates active' : `WebSocket: ${wsStatus}`}
+          >
+            {wsStatus === 'connected' ? '● live' : wsStatus}
+          </span>
+        </span>
         <span className="hidden sm:inline">
           <span className="opacity-40">Ctrl+K</span> palette
           <span className="mx-2">·</span>
