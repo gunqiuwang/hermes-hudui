@@ -22,6 +22,9 @@ from .streamer import ChatStreamer
 _BOX_DRAWING_RE = re.compile(r'^[\s\r]*[╭╮╰╯│─┌┐└┘├┤┬┴┼◉◈●▸▹▶▷■□▪▫]+[\s─╭╮╰╯│┌┐└┘├┤┬┴┼]*$')
 _SESSION_ID_RE = re.compile(r'^session_id:\s+\S+')
 _HEADER_RE = re.compile(r'[╭╰][\s─]*[◉◈●]?\s*(MOTHER|HERMES|hermes)\s*[─╮╯]')
+# Hermes system warning lines (context compression, etc.) — not part of the model response
+_WARNING_RE = re.compile(r'^⚠')
+_COMPRESSION_WARNING_RE = re.compile(r'(compression model|compression threshold|auxiliary:|compression:|threshold:\s+[\d.]+)', re.IGNORECASE)
 
 
 class ChatNotAvailableError(Exception):
@@ -161,7 +164,7 @@ class ChatEngine:
         cmd.extend(["--source", "tool"])
 
         def _is_decoration_line(line: str) -> bool:
-            """Check if a line is CLI decoration (box drawing, headers, session info)."""
+            """Check if a line is CLI decoration (box drawing, headers, session info, system warnings)."""
             stripped = line.strip().replace('\r', '')
             if not stripped:
                 return False
@@ -169,8 +172,12 @@ class ChatEngine:
                 return True
             if _HEADER_RE.search(stripped):
                 return True
-            # Lines that are only box-drawing chars, spaces, and label text
             if _BOX_DRAWING_RE.match(stripped):
+                return True
+            # Hermes system warnings (context compression, etc.)
+            if _WARNING_RE.match(stripped):
+                return True
+            if _COMPRESSION_WARNING_RE.search(stripped):
                 return True
             return False
 
