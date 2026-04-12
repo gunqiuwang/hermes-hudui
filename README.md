@@ -1,8 +1,8 @@
 # ☤ Hermes HUD — Web UI
 
-A browser-based dashboard for [Hermes](https://github.com/nousresearch/hermes-agent), the AI agent with persistent memory.
+A browser-based consciousness monitor for [Hermes](https://github.com/nousresearch/hermes-agent), the AI agent with persistent memory.
 
-Same data, same soul — now in your browser.
+Same data, same soul, same dashboard that made the [TUI version](https://github.com/joeynyc/hermes-hud) popular — now in your browser.
 
 ![Token Costs](assets/dashboard-costs.png)
 
