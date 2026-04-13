@@ -1,71 +1,61 @@
-# ☤ Hermes HUD — Web UI
+# 🤖 Agent Dashboard — 代理监控仪表盘
 
-A browser-based consciousness monitor for [Hermes](https://github.com/nousresearch/hermes-agent), the AI agent with persistent memory.
+一个基于浏览器的AI代理监控仪表盘，用于监控AI代理的状态和活动。
 
-Same data, same soul, same dashboard that made the [TUI version](https://github.com/joeynyc/hermes-hud) popular — now in your browser.
+![代理成本](assets/dashboard-costs.png)
 
-![Token Costs](assets/dashboard-costs.png)
+![代理配置](assets/profiles.png)
 
-![Agent Profiles](assets/profiles.png)
-
-## Quick Start
+## 快速开始
 
 ```bash
-git clone https://github.com/joeynyc/hermes-hudui.git
-cd hermes-hudui
+git clone https://github.com/your-username/agent-dashboard.git
+cd agent-dashboard
 ./install.sh
-hermes-hudui
+agent-dashboard
 ```
 
-Open http://localhost:3001
+打开 http://localhost:3001
 
-**Requirements:** Python 3.11+, Node.js 18+, a running Hermes agent with data in `~/.hermes/`
+**要求：** Python 3.11+，Node.js 18+，一个运行中的AI代理，数据在 `~/.hermes/`
 
-On future runs:
+以后运行：
 ```bash
-source venv/bin/activate && hermes-hudui
+source venv/bin/activate && agent-dashboard
 ```
 
-## What's Inside
+## 功能特点
 
-13 tabs covering everything your agent knows about itself — identity, memory, skills, sessions, cron jobs, projects, health, costs, patterns, corrections, and live chat.
+13个标签页，涵盖代理的所有信息 — 身份、记忆、技能、会话、定时任务、项目、健康状态、成本、模式、修正和实时聊天。
 
-Updates in real-time via WebSocket. No manual refresh needed.
+通过WebSocket实时更新，无需手动刷新。
 
-## Themes
+## 主题
 
-Four themes switchable with `t`: **Neural Awakening** (cyan), **Blade Runner** (amber), **fsociety** (green), **Anime** (purple). Optional CRT scanlines.
+四种主题可通过 `t` 切换：**神经觉醒**（青色）、**银翼杀手**（琥珀色）、**反社会**（绿色）、**动漫**（紫色）。可选CRT扫描线效果。
 
-## Keyboard Shortcuts
+## 键盘快捷键
 
-| Key | Action |
-|-----|--------|
-| `1`–`9`, `0` | Switch tabs |
-| `t` | Theme picker |
-| `Ctrl+K` | Command palette |
+| 按键 | 操作 |
+|------|------|
+| `1`–`9`, `0` | 切换标签页 |
+| `t` | 主题选择器 |
+| `Ctrl+K` | 命令面板 |
 
-## Relationship to the TUI
-
-This is the browser companion to [hermes-hud](https://github.com/joeynyc/hermes-hud). Both read from the same `~/.hermes/` data directory independently — use either one, or both at the same time.
-
-The Web UI is fully standalone and adds features the TUI doesn't have: dedicated Memory, Skills, and Sessions tabs; per-model token cost tracking; command palette; live chat; theme switcher.
-
-If you also have the TUI installed, you can enable it with `pip install hermes-hudui[tui]`.
-
-## Platform Support
+## 平台支持
 
 macOS · Linux · WSL
 
-## License
+## 许可证
 
-MIT — see [LICENSE](LICENSE).
+MIT — 详见 [LICENSE](LICENSE)。
 
 ---
 
-<a href="https://www.star-history.com/?repos=joeynyc%2Fhermes-hudui&type=date&logscale=&legend=top-left">
+<a href="https://www.star-history.com/?repos=your-username%2Fagent-dashboard&type=date&logscale=&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=joeynyc/hermes-hudui&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=joeynyc/hermes-hudui&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=joeynyc/hermes-hudui&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=your-username/agent-dashboard&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=your-username/agent-dashboard&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=your-username/agent-dashboard&type=date&legend=top-left" />
  </picture>
 </a>

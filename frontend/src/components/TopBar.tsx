@@ -2,19 +2,19 @@ import { useState, useEffect } from 'react'
 import { useTheme, THEMES } from '../hooks/useTheme'
 
 export const TABS = [
-  { id: 'dashboard', label: 'Dashboard', key: '1' },
-  { id: 'memory', label: 'Memory', key: '2' },
-  { id: 'skills', label: 'Skills', key: '3' },
-  { id: 'sessions', label: 'Sessions', key: '4' },
-  { id: 'cron', label: 'Cron', key: '5' },
-  { id: 'projects', label: 'Projects', key: '6' },
-  { id: 'health', label: 'Health', key: '7' },
-  { id: 'agents', label: 'Agents', key: '8' },
-  { id: 'chat', label: 'Chat', key: '9' },
-  { id: 'profiles', label: 'Profiles', key: '0' },
-  { id: 'token-costs', label: 'Costs', key: null },  // Click only, no hotkey
-  { id: 'corrections', label: 'Corrections', key: null },
-  { id: 'patterns', label: 'Patterns', key: null },
+  { id: 'dashboard', label: '仪表盘', key: '1' },
+  { id: 'memory', label: '记忆', key: '2' },
+  { id: 'skills', label: '技能', key: '3' },
+  { id: 'sessions', label: '会话', key: '4' },
+  { id: 'cron', label: '定时任务', key: '5' },
+  { id: 'projects', label: '项目', key: '6' },
+  { id: 'health', label: '健康', key: '7' },
+  { id: 'agents', label: '代理', key: '8' },
+  { id: 'chat', label: '聊天', key: '9' },
+  { id: 'profiles', label: '配置', key: '0' },
+  { id: 'token-costs', label: '成本', key: null },  // Click only, no hotkey
+  { id: 'corrections', label: '修正', key: null },
+  { id: 'patterns', label: '模式', key: null },
 ] as const
 
 export type TabId = typeof TABS[number]['id']
@@ -69,7 +69,7 @@ export default function TopBar({ activeTab, onTabChange }: TopBarProps) {
          style={{ borderColor: 'var(--hud-border)', background: 'var(--hud-bg-surface)' }}>
       {/* Logo */}
       <span className="gradient-text font-bold text-[13px] mr-3 tracking-wider cursor-pointer shrink-0"
-            onClick={() => onTabChange('dashboard')}>☤ HERMES</span>
+            onClick={() => onTabChange('dashboard')}>🤖 代理监控</span>
 
       {/* Tabs */}
       <div className="flex gap-0.5 flex-1 overflow-x-auto" style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}>
@@ -98,7 +98,7 @@ export default function TopBar({ activeTab, onTabChange }: TopBarProps) {
           onClick={() => setShowThemePicker(p => !p)}
           className="px-2 py-1.5 text-[13px] tracking-wider uppercase cursor-pointer"
           style={{ color: 'var(--hud-text-dim)', minHeight: '32px' }}
-          title="Theme (t)"
+          title="主题 (t)"
         >
           ◆
         </button>
@@ -125,7 +125,7 @@ export default function TopBar({ activeTab, onTabChange }: TopBarProps) {
               className="block w-full text-left px-3 py-2 text-[13px] cursor-pointer"
               style={{ color: 'var(--hud-text-dim)', minHeight: '36px' }}
             >
-              {scanlines ? '▣' : '□'} Scanlines
+              {scanlines ? '▣' : '□'} 扫描线
             </button>
           </div>
         )}

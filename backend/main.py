@@ -1,4 +1,4 @@
-"""Hermes HUD Web UI — FastAPI backend."""
+"""代理监控仪表盘 — FastAPI后端."""
 
 from __future__ import annotations
 
@@ -46,7 +46,7 @@ async def lifespan(app: FastAPI):
     # Startup
     hermes_dir = os.environ.get("HERMES_HOME") or os.path.expanduser("~/.hermes")
     await start_watcher(hermes_dir)
-    logger.info(f"Hermes HUD started, watching {hermes_dir}")
+    logger.info(f"代理监控仪表盘启动，监控目录: {hermes_dir}")
 
     yield
 
@@ -111,20 +111,20 @@ if STATIC_DIR.exists():
 
 
 def cli():
-    """CLI entry point: hermes-hudui"""
-    parser = argparse.ArgumentParser(description="Hermes HUD Web UI")
-    parser.add_argument("--port", type=int, default=3001, help="Port (default: 3001)")
-    parser.add_argument("--host", default="0.0.0.0", help="Host (default: 0.0.0.0)")
+    """CLI entry point: agent-dashboard"""
+    parser = argparse.ArgumentParser(description="代理监控仪表盘 - Web UI监控界面")
+    parser.add_argument("--port", type=int, default=3001, help="端口 (默认: 3001)")
+    parser.add_argument("--host", default="0.0.0.0", help="主机 (默认: 0.0.0.0)")
     parser.add_argument(
-        "--dev", action="store_true", help="Development mode (auto-reload)"
+        "--dev", action="store_true", help="开发模式 (自动重载)"
     )
     parser.add_argument(
-        "--hermes-dir", default=None, help="Hermes data directory (default: ~/.hermes)"
+        "--agent-dir", default=None, help="代理数据目录 (默认: ~/.hermes)"
     )
     args = parser.parse_args()
 
-    if args.hermes_dir:
-        os.environ["HERMES_HOME"] = args.hermes_dir
+    if args.agent_dir:
+        os.environ["HERMES_HOME"] = args.agent_dir
 
     import uvicorn
 

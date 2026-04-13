@@ -17,10 +17,10 @@ const ThemeContext = createContext<ThemeContextValue>({
 })
 
 export const THEMES: { id: ThemeId; label: string; icon: string }[] = [
-  { id: 'ai', label: 'Neural Awakening', icon: '◆' },
-  { id: 'blade-runner', label: 'Blade Runner', icon: '◈' },
-  { id: 'fsociety', label: 'fsociety', icon: '▣' },
-  { id: 'anime', label: 'Anime', icon: '◎' },
+  { id: 'ai', label: '神经觉醒', icon: '◆' },
+  { id: 'blade-runner', label: '银翼杀手', icon: '◈' },
+  { id: 'fsociety', label: '反社会', icon: '▣' },
+  { id: 'anime', label: '动漫', icon: '◎' },
 ]
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

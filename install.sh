@@ -3,7 +3,7 @@
 # Works on macOS, Linux, and Windows (WSL)
 set -e
 
-echo "☤ Hermes HUD Web UI — Install"
+echo "🤖 Agent Dashboard — 安装"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 # Detect platform
@@ -64,15 +64,15 @@ if ! command -v npm &>/dev/null; then
     exit 1
 fi
 
-# Check for hermes data directory
-HERMES_DIR="${HERMES_HOME:-$HOME/.hermes}"
-if [ ! -d "$HERMES_DIR" ]; then
+# Check for agent data directory
+AGENT_DIR="${AGENT_HOME:-$HOME/.hermes}"
+if [ ! -d "$AGENT_DIR" ]; then
     echo ""
-    echo "⚠ No Hermes data found at $HERMES_DIR"
-    echo "  The dashboard will be empty until a Hermes agent runs."
-    echo "  Options:"
-    echo "    1. Install and run Hermes first"
-    echo "    2. Set HERMES_HOME to your agent data directory"
+    echo "⚠ 未找到代理数据目录: $AGENT_DIR"
+    echo "  仪表盘将为空，直到有代理运行。"
+    echo "  选项："
+    echo "    1. 先安装并运行代理"
+    echo "    2. 设置 AGENT_HOME 为你的代理数据目录"
     echo ""
 fi
 
@@ -86,31 +86,31 @@ else
 fi
 
 # Activate and install
-echo "→ Installing hermes-hudui..."
+echo "→ 安装 agent-dashboard..."
 source venv/bin/activate
 pip install -e . -q
-echo "✔ Backend installed"
+echo "✔ 后端安装完成"
 
 # Build frontend
-echo "→ Building frontend..."
+echo "→ 构建前端..."
 cd frontend
 npm install --silent 2>/dev/null
 npm run build 2>/dev/null
 cd ..
 
 # Copy to static
-echo "→ Deploying frontend..."
+echo "→ 部署前端..."
 mkdir -p backend/static/assets
 cp frontend/dist/index.html backend/static/
 cp frontend/dist/assets/* backend/static/assets/
-echo "✔ Frontend built and deployed"
+echo "✔ 前端构建并部署完成"
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "✔ Ready. To run:"
+echo "✔ 安装完成。运行方式："
 echo ""
 echo "  source venv/bin/activate"
-echo "  hermes-hudui"
+echo "  agent-dashboard"
 echo ""
-echo "  Then open http://localhost:3001"
+echo "  然后打开 http://localhost:3001"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
