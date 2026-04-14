@@ -1,6 +1,6 @@
-# 🤖 Agent Dashboard — 代理监控仪表盘
+# 🤖 Agent Dashboard — 代理监控仪表盘（汉化版）
 
-一个基于浏览器的AI代理监控仪表盘，用于监控AI代理的状态和活动。
+一个基于浏览器的AI代理监控仪表盘（汉化版），提供完整的中文界面，优化标签布局和视觉样式，便于中文用户监控AI代理状态和活动。
 
 ![代理成本](assets/dashboard-costs.png)
 
@@ -9,8 +9,8 @@
 ## 快速开始
 
 ```bash
-git clone https://github.com/your-username/agent-dashboard.git
-cd agent-dashboard
+git clone https://github.com/gunqiuwang/hermes-hudui.git
+cd hermes-hudui
 ./install.sh
 agent-dashboard
 ```
@@ -23,6 +23,13 @@ agent-dashboard
 ```bash
 source venv/bin/activate && agent-dashboard
 ```
+
+## 汉化特点
+
+- **完整中文界面**：所有标签、按钮、提示均为中文
+- **标签布局优化**：交换"聊天"和"健康"标签位置，提升常用功能可访问性
+- **视觉样式增强**：聊天标签采用突出显示样式（黄色高亮、边框），便于快速定位
+- **主题支持**：四种主题可通过 `t` 切换，支持CRT扫描线效果
 
 ## 功能特点
 
@@ -52,10 +59,10 @@ MIT — 详见 [LICENSE](LICENSE)。
 
 ---
 
-<a href="https://www.star-history.com/?repos=your-username%2Fagent-dashboard&type=date&logscale=&legend=top-left">
+<a href="https://www.star-history.com/?repos=gunqiuwang%2Fhermes-hudui&type=date&logscale=&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=your-username/agent-dashboard&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=your-username/agent-dashboard&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=your-username/agent-dashboard&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=gunqiuwang/hermes-hudui&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=gunqiuwang/hermes-hudui&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=gunqiuwang/hermes-hudui&type=date&legend=top-left" />
  </picture>
 </a>
