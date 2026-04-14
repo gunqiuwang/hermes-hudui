@@ -8,7 +8,7 @@ async function cronAction(jobId: string, action: string | null, method = 'POST')
   const res = await fetch(url, { method })
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
-    throw new Error(err.detail || `${action ?? 'delete'} failed`)
+    throw new Error(err.detail || `${action ?? '删除'} 失败`)
   }
 }
 
@@ -25,7 +25,7 @@ export default function CronPanel() {
       await cronAction(jobId, action, method)
       await mutate()
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Unknown error')
+      setError(e instanceof Error ? e.message : '未知错误')
     } finally {
       setBusy(null)
       setConfirming(null)
@@ -33,16 +33,16 @@ export default function CronPanel() {
   }
 
   if (isLoading && !data) {
-    return <Panel title="Cron Jobs" className="col-span-full"><div className="glow text-[13px] animate-pulse">Loading...</div></Panel>
+    return <Panel title="定时任务" className="col-span-full"><div className="glow text-[13px] animate-pulse">加载中...</div></Panel>
   }
 
   const jobs = data?.jobs || data || []
   if (!Array.isArray(jobs) || jobs.length === 0) {
-    return <Panel title="Cron Jobs" className="col-span-full"><div className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>No cron jobs configured</div></Panel>
+    return <Panel title="定时任务" className="col-span-full"><div className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>暂无定时任务配置</div></Panel>
   }
 
   return (
-    <Panel title="Cron Jobs" className="col-span-full">
+    <Panel title="定时任务" className="col-span-full">
       {error && (
         <div className="mb-3 px-2 py-1.5 text-[12px]" style={{ color: 'var(--hud-error)', background: 'var(--hud-bg-surface)' }}>
           {error}
@@ -69,7 +69,7 @@ export default function CronPanel() {
                     background: 'var(--hud-bg-hover)',
                     color: isActive ? 'var(--hud-success)' : 'var(--hud-text-dim)'
                   }}>
-                  {job.state || 'unknown'}
+                  {job.state || '未知'}
                 </span>
 
                 <div className="ml-auto flex items-center gap-1.5">
@@ -81,7 +81,7 @@ export default function CronPanel() {
                         className="px-2 py-0.5 text-[11px] cursor-pointer disabled:opacity-40"
                         style={{ background: 'var(--hud-success)', color: 'var(--hud-bg-deep)' }}
                       >
-                        {isBusy('resume') ? '...' : 'Resume'}
+                        {isBusy('resume') ? '...' : '恢复'}
                       </button>
                     ) : (
                       <>
@@ -91,7 +91,7 @@ export default function CronPanel() {
                           className="px-2 py-0.5 text-[11px] cursor-pointer disabled:opacity-40"
                           style={{ background: 'var(--hud-accent)', color: 'var(--hud-bg-deep)' }}
                         >
-                          {isBusy('run') ? '...' : 'Run'}
+                          {isBusy('run') ? '...' : '运行'}
                         </button>
                         <button
                           onClick={() => act(job.id, 'pause')}
@@ -99,7 +99,7 @@ export default function CronPanel() {
                           className="px-2 py-0.5 text-[11px] cursor-pointer disabled:opacity-40"
                           style={{ background: 'var(--hud-bg-hover)', color: 'var(--hud-text-dim)' }}
                         >
-                          {isBusy('pause') ? '...' : 'Pause'}
+                          {isBusy('pause') ? '...' : '暂停'}
                         </button>
                       </>
                     )
@@ -113,14 +113,14 @@ export default function CronPanel() {
                         className="px-2 py-0.5 text-[11px] cursor-pointer disabled:opacity-40"
                         style={{ background: 'var(--hud-error)', color: 'var(--hud-bg-deep)' }}
                       >
-                        {isBusy('delete') ? '...' : 'Confirm'}
+                        {isBusy('delete') ? '...' : '确认'}
                       </button>
                       <button
                         onClick={() => setConfirming(null)}
                         className="px-2 py-0.5 text-[11px] cursor-pointer"
                         style={{ background: 'var(--hud-bg-hover)', color: 'var(--hud-text-dim)' }}
                       >
-                        Cancel
+                        取消
                       </button>
                     </>
                   ) : (
@@ -130,7 +130,7 @@ export default function CronPanel() {
                       className="px-2 py-0.5 text-[11px] cursor-pointer disabled:opacity-40"
                       style={{ background: 'var(--hud-bg-hover)', color: 'var(--hud-error)' }}
                     >
-                      Delete
+                      删除
                     </button>
                   )}
                 </div>
@@ -138,11 +138,11 @@ export default function CronPanel() {
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[13px]">
                 <div>
-                  <div className="uppercase tracking-wider" style={{ color: 'var(--hud-text-dim)', fontSize: '10px' }}>Schedule</div>
+                  <div className="uppercase tracking-wider" style={{ color: 'var(--hud-text-dim)', fontSize: '10px' }}>计划</div>
                   <div style={{ color: 'var(--hud-primary)' }}>{job.schedule_display || job.schedule || '-'}</div>
                 </div>
                 <div>
-                  <div className="uppercase tracking-wider" style={{ color: 'var(--hud-text-dim)', fontSize: '10px' }}>Last Run</div>
+                  <div className="uppercase tracking-wider" style={{ color: 'var(--hud-text-dim)', fontSize: '10px' }}>上次运行</div>
                   <div>
                     {timeAgo(job.last_run_at)}
                     {job.last_status && (
@@ -153,19 +153,19 @@ export default function CronPanel() {
                   </div>
                 </div>
                 <div>
-                  <div className="uppercase tracking-wider" style={{ color: 'var(--hud-text-dim)', fontSize: '10px' }}>Next Run</div>
+                  <div className="uppercase tracking-wider" style={{ color: 'var(--hud-text-dim)', fontSize: '10px' }}>下次运行</div>
                   <div>{job.next_run_at ? new Date(job.next_run_at).toLocaleString() : '-'}</div>
                 </div>
                 <div>
-                  <div className="uppercase tracking-wider" style={{ color: 'var(--hud-text-dim)', fontSize: '10px' }}>Deliver</div>
+                  <div className="uppercase tracking-wider" style={{ color: 'var(--hud-text-dim)', fontSize: '10px' }}>投递</div>
                   <div style={{ color: 'var(--hud-accent)' }}>{job.deliver || '-'}</div>
                 </div>
               </div>
 
               {job.repeat_completed != null && (
                 <div className="mt-2 text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>
-                  Runs completed: {job.repeat_completed}{job.repeat_total ? ` / ${job.repeat_total}` : ''}
-                  {job.skills?.length > 0 && <span className="ml-2">Skills: {job.skills.join(', ')}</span>}
+                  运行完成: {job.repeat_completed}{job.repeat_total ? ` / ${job.repeat_total}` : ''}
+                  {job.skills?.length > 0 && <span className="ml-2">技能: {job.skills.join(', ')}</span>}
                 </div>
               )}
 
@@ -177,7 +177,7 @@ export default function CronPanel() {
 
               {job.paused_reason && (
                 <div className="mt-1 text-[12px]" style={{ color: 'var(--hud-warning)' }}>
-                  Paused: {job.paused_reason}
+                  暂停原因: {job.paused_reason}
                 </div>
               )}
             </div>

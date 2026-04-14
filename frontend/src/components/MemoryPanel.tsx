@@ -10,7 +10,7 @@ async function memoryApi(method: string, body: Record<string, string>) {
   })
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: res.statusText }))
-    throw new Error(err.detail || 'Request failed')
+    throw new Error(err.detail || '请求失败')
   }
   return res.json()
 }
@@ -96,7 +96,7 @@ function MemoryEntry({
                 style={{ color: 'var(--hud-primary)' }}
                 disabled={busy}
               >
-                edit
+                编辑
               </button>
               <button
                 onClick={deleteEntry}
@@ -105,11 +105,11 @@ function MemoryEntry({
                 style={{ color: 'var(--hud-error, #f44)' }}
                 disabled={busy}
               >
-                {confirming ? 'confirm?' : 'del'}
+                {confirming ? '确认？' : '删除'}
               </button>
             </span>
           )}
-          <span style={{ color: 'var(--hud-text-dim)' }}>{entry.char_count}c</span>
+          <span style={{ color: 'var(--hud-text-dim)' }}>{entry.char_count}字</span>
         </span>
       </div>
 
@@ -134,7 +134,7 @@ function MemoryEntry({
               className="text-[11px] px-2 py-0.5 cursor-pointer"
               style={{ background: 'var(--hud-primary)', color: 'var(--hud-bg-deep)', border: 'none' }}
             >
-              {busy ? 'Saving...' : 'Save'}
+              {busy ? '保存中...' : '保存'}
             </button>
             <button
               onClick={cancelEdit}
@@ -142,7 +142,7 @@ function MemoryEntry({
               className="text-[11px] px-2 py-0.5 cursor-pointer"
               style={{ background: 'var(--hud-bg-hover)', color: 'var(--hud-text-dim)', border: '1px solid var(--hud-border)' }}
             >
-              Cancel
+              取消
             </button>
           </div>
           {error && <div className="text-[11px] mt-1" style={{ color: 'var(--hud-error, #f44)' }}>{error}</div>}
@@ -184,7 +184,7 @@ function AddEntryForm({ target, onMutate }: { target: string; onMutate: () => vo
         className="w-full text-[11px] py-1 mt-1 cursor-pointer"
         style={{ color: 'var(--hud-text-dim)', border: '1px dashed var(--hud-border)', background: 'transparent' }}
       >
-        + Add entry
+        + 添加条目
       </button>
     )
   }
@@ -194,7 +194,7 @@ function AddEntryForm({ target, onMutate }: { target: string; onMutate: () => vo
       <textarea
         value={text}
         onChange={e => setText(e.target.value)}
-        placeholder="New memory entry..."
+        placeholder="新的记忆条目..."
         className="w-full text-[13px] p-1.5 outline-none resize-y"
         style={{
           background: 'var(--hud-bg-deep)',
@@ -211,14 +211,14 @@ function AddEntryForm({ target, onMutate }: { target: string; onMutate: () => vo
           className="text-[11px] px-2 py-0.5 cursor-pointer disabled:opacity-40"
           style={{ background: 'var(--hud-primary)', color: 'var(--hud-bg-deep)', border: 'none' }}
         >
-          {busy ? 'Adding...' : 'Add'}
+          {busy ? '添加中...' : '添加'}
         </button>
         <button
           onClick={() => { setOpen(false); setText(''); setError('') }}
           className="text-[11px] px-2 py-0.5 cursor-pointer"
           style={{ background: 'var(--hud-bg-hover)', color: 'var(--hud-text-dim)', border: '1px solid var(--hud-border)' }}
         >
-          Cancel
+          取消
         </button>
       </div>
       {error && <div className="text-[11px] mt-1" style={{ color: 'var(--hud-error, #f44)' }}>{error}</div>}
@@ -227,7 +227,7 @@ function AddEntryForm({ target, onMutate }: { target: string; onMutate: () => vo
 }
 
 function MemoryEntries({ entries, target, onMutate }: { entries: any[]; target: string; onMutate: () => void }) {
-  if (!entries?.length) return <div className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>No entries</div>
+  if (!entries?.length) return <div className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>暂无条目</div>
 
   return (
     <div className="space-y-1.5">
@@ -242,26 +242,26 @@ export default function MemoryPanel() {
   const { data, isLoading, mutate } = useApi('/memory', 30000)
 
   if (isLoading && !data) {
-    return <Panel title="Memory" className="col-span-full"><div className="glow text-[13px] animate-pulse">Loading...</div></Panel>
+    return <Panel title="记忆" className="col-span-full"><div className="glow text-[13px] animate-pulse">加载中...</div></Panel>
   }
 
   const { memory, user } = data
 
   return (
     <>
-      <Panel title="Agent Memory" className="col-span-1">
-        <CapacityBar value={memory?.total_chars || 0} max={memory?.max_chars || 2200} label="CAPACITY" />
+      <Panel title="代理记忆" className="col-span-1">
+        <CapacityBar value={memory?.total_chars || 0} max={memory?.max_chars || 2200} label="容量" />
         <div className="text-[13px] my-2" style={{ color: 'var(--hud-text-dim)' }}>
-          {memory?.entry_count || 0} entries · {Object.entries(memory?.count_by_category || {}).map(([k,v]) => `${k}(${v})`).join(' ')}
+          {memory?.entry_count || 0} 个条目 · {Object.entries(memory?.count_by_category || {}).map(([k,v]) => `${k}(${v})`).join(' ')}
         </div>
         <MemoryEntries entries={memory?.entries || []} target="memory" onMutate={mutate} />
         <AddEntryForm target="memory" onMutate={mutate} />
       </Panel>
 
-      <Panel title="User Profile" className="col-span-1">
-        <CapacityBar value={user?.total_chars || 0} max={user?.max_chars || 1375} label="CAPACITY" />
+      <Panel title="用户配置" className="col-span-1">
+        <CapacityBar value={user?.total_chars || 0} max={user?.max_chars || 1375} label="容量" />
         <div className="text-[13px] my-2" style={{ color: 'var(--hud-text-dim)' }}>
-          {user?.entry_count || 0} entries
+          {user?.entry_count || 0} 个条目
         </div>
         <MemoryEntries entries={user?.entries || []} target="user" onMutate={mutate} />
         <AddEntryForm target="user" onMutate={mutate} />

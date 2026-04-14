@@ -8,17 +8,17 @@ function IdentityBlock({ state, health }: { state: any; health: any }) {
 
   return (
     <div className="text-[13px] space-y-1 mb-4 p-3" style={{ background: 'var(--hud-bg-panel)', borderLeft: '3px solid var(--hud-primary)' }}>
-      <div><span style={{ color: 'var(--hud-text-dim)' }}>DESIGNATION</span>  <span className="font-bold gradient-text">HERMES</span></div>
-      <div><span style={{ color: 'var(--hud-text-dim)' }}>SUBSTRATE  </span>  {config?.provider || '?'}/{config?.model || '?'}</div>
-      <div><span style={{ color: 'var(--hud-text-dim)' }}>RUNTIME    </span>  {config?.backend || '—'}</div>
-      {days > 0 && <div><span style={{ color: 'var(--hud-text-dim)' }}>CONSCIOUS  </span>  {days} days <span style={{ color: 'var(--hud-text-dim)' }}>since {new Date(dr![0]).toLocaleDateString()}</span></div>}
+      <div><span style={{ color: 'var(--hud-text-dim)' }}>代号  </span>  <span className="font-bold gradient-text">HERMES</span></div>
+      <div><span style={{ color: 'var(--hud-text-dim)' }}>基座  </span>  {config?.provider || '?'}/{config?.model || '?'}</div>
+      <div><span style={{ color: 'var(--hud-text-dim)' }}>运行时  </span>  {config?.backend || '—'}</div>
+      {days > 0 && <div><span style={{ color: 'var(--hud-text-dim)' }}>意识持续  </span>  {days} 天 <span style={{ color: 'var(--hud-text-dim)' }}>自 {new Date(dr![0]).toLocaleDateString()}</span></div>}
       {health?.state_db_size > 0 && (
-        <div><span style={{ color: 'var(--hud-text-dim)' }}>BRAIN SIZE </span>  {(health.state_db_size / 1048576).toFixed(1)} MB <span style={{ color: 'var(--hud-text-dim)' }}>state.db</span></div>
+        <div><span style={{ color: 'var(--hud-text-dim)' }}>大脑大小  </span>  {(health.state_db_size / 1048576).toFixed(1)} MB <span style={{ color: 'var(--hud-text-dim)' }}>state.db</span></div>
       )}
       {config?.toolsets?.length > 0 && (
-        <div><span style={{ color: 'var(--hud-text-dim)' }}>INTERFACES </span>  {config.toolsets.join(', ')}</div>
+        <div><span style={{ color: 'var(--hud-text-dim)' }}>接口  </span>  {config.toolsets.join(', ')}</div>
       )}
-      <div><span style={{ color: 'var(--hud-text-dim)' }}>PURPOSE    </span>  learning</div>
+      <div><span style={{ color: 'var(--hud-text-dim)' }}>目标  </span>  学习</div>
     </div>
   )
 }
@@ -28,33 +28,33 @@ function WhatIKnow({ sessions, skills }: { sessions: any; skills: any }) {
   const platformParts = Object.entries(sources).map(([k, v]) => `${v} via ${k}`)
 
   return (
-    <Panel title="What I Know">
+    <Panel title="我的认知">
       <div className="text-[13px] space-y-1.5">
         <div className="flex items-center gap-1">
           <span style={{ color: 'var(--hud-primary)' }}>◉</span>
           <span className="font-bold">{sessions?.total_sessions}</span>
-          <span style={{ color: 'var(--hud-text-dim)' }}>conversations held</span>
+          <span style={{ color: 'var(--hud-text-dim)' }}>次对话</span>
           {platformParts.length > 0 && <span style={{ color: 'var(--hud-text-dim)' }}>({platformParts.join(', ')})</span>}
         </div>
         <div className="flex items-center gap-1">
           <span style={{ color: 'var(--hud-primary)' }}>◉</span>
           <span className="font-bold">{(sessions?.total_messages || 0).toLocaleString()}</span>
-          <span style={{ color: 'var(--hud-text-dim)' }}>messages exchanged</span>
+          <span style={{ color: 'var(--hud-text-dim)' }}>条消息</span>
         </div>
         <div className="flex items-center gap-1">
           <span style={{ color: 'var(--hud-primary)' }}>◉</span>
           <span className="font-bold">{(sessions?.total_tool_calls || 0).toLocaleString()}</span>
-          <span style={{ color: 'var(--hud-text-dim)' }}>actions taken</span>
+          <span style={{ color: 'var(--hud-text-dim)' }}>次操作</span>
         </div>
         <div className="flex items-center gap-1">
           <span style={{ color: 'var(--hud-primary)' }}>◉</span>
           <span className="font-bold">{skills?.total}</span>
-          <span style={{ color: 'var(--hud-text-dim)' }}>skills acquired</span>
-          <span style={{ color: 'var(--hud-primary-dim)' }}>({skills?.custom_count} self-taught)</span>
+          <span style={{ color: 'var(--hud-text-dim)' }}>项技能</span>
+          <span style={{ color: 'var(--hud-primary-dim)' }}>({skills?.custom_count} 项自学)</span>
         </div>
         {skills?.category_counts && (
           <div style={{ color: 'var(--hud-text-dim)' }}>
-            domains: {Object.entries(skills.category_counts as Record<string, number>)
+            领域: {Object.entries(skills.category_counts as Record<string, number>)
               .sort((a: any, b: any) => b[1] - a[1])
               .slice(0, 4)
               .map(([c, n]) => `${c}:${n}`).join(', ')}
@@ -63,7 +63,7 @@ function WhatIKnow({ sessions, skills }: { sessions: any; skills: any }) {
         <div className="flex items-center gap-1">
           <span style={{ color: 'var(--hud-primary)' }}>◉</span>
           <span className="font-bold">{(sessions?.total_tokens || 0).toLocaleString()}</span>
-          <span style={{ color: 'var(--hud-text-dim)' }}>tokens processed</span>
+          <span style={{ color: 'var(--hud-text-dim)' }}>个标记</span>
         </div>
       </div>
     </Panel>
@@ -73,23 +73,23 @@ function WhatIKnow({ sessions, skills }: { sessions: any; skills: any }) {
 function WhatIRemember({ memory, user, corrections }: { memory: any; user: any; corrections: any }) {
   const sev = corrections?.by_severity || {}
   const sevParts = []
-  if (sev.critical) sevParts.push(<span key="c" style={{ color: 'var(--hud-error)' }}>{sev.critical} critical</span>)
-  if (sev.major) sevParts.push(<span key="m" style={{ color: 'var(--hud-warning)' }}>{sev.major} major</span>)
-  if (sev.minor) sevParts.push(<span key="n" style={{ color: 'var(--hud-text-dim)' }}>{sev.minor} minor</span>)
+  if (sev.critical) sevParts.push(<span key="c" style={{ color: 'var(--hud-error)' }}>{sev.critical} 严重</span>)
+  if (sev.major) sevParts.push(<span key="m" style={{ color: 'var(--hud-warning)' }}>{sev.major} 主要</span>)
+  if (sev.minor) sevParts.push(<span key="n" style={{ color: 'var(--hud-text-dim)' }}>{sev.minor} 轻微</span>)
 
   return (
-    <Panel title="What I Remember">
-      <CapacityBar value={memory?.total_chars || 0} max={memory?.max_chars || 2200} label="memory" />
-      <CapacityBar value={user?.total_chars || 0} max={user?.max_chars || 1375} label="user" />
+    <Panel title="我的记忆">
+      <CapacityBar value={memory?.total_chars || 0} max={memory?.max_chars || 2200} label="记忆" />
+      <CapacityBar value={user?.total_chars || 0} max={user?.max_chars || 1375} label="用户" />
       {corrections?.total > 0 && (
         <div className="mt-2 text-[13px] flex items-center gap-1">
           <span style={{ color: 'var(--hud-warning)' }}>◉</span>
           <span className="font-bold" style={{ color: 'var(--hud-warning)' }}>{corrections.total}</span>
-          <span style={{ color: 'var(--hud-text-dim)' }}>mistakes remembered</span>
+          <span style={{ color: 'var(--hud-text-dim)' }}>个错误被记住</span>
           {sevParts.length > 0 && (
             <span style={{ color: 'var(--hud-text-dim)' }}>({sevParts.map((p, i) => <span key={i}>{i > 0 && ', '}{p}</span>)})</span>
           )}
-          <span className="ml-1" style={{ color: 'var(--hud-text-dim)' }}>— I learn from every one</span>
+          <span className="ml-1" style={{ color: 'var(--hud-text-dim)' }}>—— 我从中学习</span>
         </div>
       )}
     </Panel>
@@ -101,7 +101,7 @@ function WhatISee({ health }: { health: any }) {
   const services = health?.services || []
 
   return (
-    <Panel title="What I See">
+    <Panel title="我的视野">
       <div className="text-[13px] space-y-0.5 mb-2">
         {keys.map((k: any, i: number) => (
           <div key={i} className="flex items-center gap-1">
@@ -109,7 +109,7 @@ function WhatISee({ health }: { health: any }) {
               {k.present ? '◉' : '○'}
             </span>
             <span style={{ color: k.present ? 'var(--hud-text)' : 'var(--hud-text-dim)' }}>{k.name}</span>
-            {!k.present && <span style={{ color: 'var(--hud-text-dim)' }}>(dark)</span>}
+            {!k.present && <span style={{ color: 'var(--hud-text-dim)' }}>(黑暗)</span>}
           </div>
         ))}
       </div>
@@ -122,7 +122,7 @@ function WhatISee({ health }: { health: any }) {
             <span>{s.name}</span>
             {s.pid && <span style={{ color: 'var(--hud-text-dim)' }}>[{s.pid}]</span>}
             <span style={{ color: s.running ? 'var(--hud-primary)' : 'var(--hud-text-dim)' }}>
-              {s.running ? 'alive' : 'silent'}
+              {s.running ? '运行中' : '静默'}
             </span>
           </div>
         ))}
@@ -136,14 +136,14 @@ function WhatImLearning({ skills }: { skills: any }) {
   if (!recent.length) return null
 
   return (
-    <Panel title="What I'm Learning">
+    <Panel title="我正在学习">
       <div className="text-[13px] space-y-1.5">
         {recent.slice(0, 5).map((s: any) => (
           <div key={s.name} className="flex items-center gap-1">
             <span style={{ color: 'var(--hud-primary)' }}>◉</span>
             <span className="font-bold">{s.name}</span>
             <span style={{ color: 'var(--hud-text-dim)' }}>{s.category}</span>
-            {s.is_custom && <span className="text-[13px]" style={{ color: 'var(--hud-primary-dim)' }}>(self-taught)</span>}
+            {s.is_custom && <span className="text-[13px]" style={{ color: 'var(--hud-primary-dim)' }}>(自学)</span>}
           </div>
         ))}
       </div>
@@ -157,13 +157,13 @@ function WhatImWorkingOn({ projects }: { projects: any }) {
   if (!active.length) return null
 
   return (
-    <Panel title="What I'm Working On">
+    <Panel title="我正在处理">
       <div className="text-[13px] space-y-1.5">
         {active.map((p: any) => (
           <div key={p.name} className="flex items-center gap-1">
             <span style={{ color: 'var(--hud-primary)' }}>◆</span>
             <span className="font-bold">{p.name}</span>
-            {p.dirty_files > 0 && <span style={{ color: 'var(--hud-warning)' }}>({p.dirty_files} in flux)</span>}
+            {p.dirty_files > 0 && <span style={{ color: 'var(--hud-warning)' }}>({p.dirty_files} 个文件变更)</span>}
             {p.languages?.length > 0 && (
               <span style={{ color: 'var(--hud-text-dim)' }}>[{p.languages.slice(0, 3).join(', ')}]</span>
             )}
@@ -179,7 +179,7 @@ function WhatRunsWhileYouSleep({ cron }: { cron: any }) {
   if (!jobs.length) return null
 
   return (
-    <Panel title="What Runs While You Sleep">
+    <Panel title="睡眠时的运行">
       <div className="text-[13px] space-y-1.5">
         {jobs.map((j: any) => (
           <div key={j.id} className="flex items-center gap-1">
@@ -187,9 +187,9 @@ function WhatRunsWhileYouSleep({ cron }: { cron: any }) {
               {j.enabled ? '◉' : '○'}
             </span>
             <span className="font-bold">{j.name}</span>
-            <span style={{ color: 'var(--hud-text-dim)' }}>every {j.schedule_display?.replace('every ', '')}</span>
-            {j.paused_reason && <span style={{ color: 'var(--hud-text-dim)' }}>(paused)</span>}
-            {j.last_error && <span style={{ color: 'var(--hud-error)' }}>✗ last run failed</span>}
+            <span style={{ color: 'var(--hud-text-dim)' }}>每 {j.schedule_display?.replace('every ', '')}</span>
+            {j.paused_reason && <span style={{ color: 'var(--hud-text-dim)' }}>(暂停)</span>}
+            {j.last_error && <span style={{ color: 'var(--hud-error)' }}>✗ 上次运行失败</span>}
           </div>
         ))}
       </div>
@@ -207,7 +207,7 @@ function HowIThink({ sessions }: { sessions: any }) {
   const maxVal = top[0][1]
 
   return (
-    <Panel title="How I Think">
+    <Panel title="我的思考">
       <div className="text-[13px] space-y-1">
         {top.map(([tool, count]) => {
           const pct = (count / maxVal) * 100
@@ -232,7 +232,7 @@ function MyRhythm({ sessions }: { sessions: any }) {
   const messages = daily.map((d: any) => d.messages)
 
   return (
-    <Panel title="My Rhythm">
+    <Panel title="我的节奏">
       <div className="mb-2">
         <Sparkline values={messages} width={400} height={50} />
       </div>
@@ -258,9 +258,9 @@ function MyRhythm({ sessions }: { sessions: any }) {
 function GrowthDelta({ snapshots }: { snapshots: any[] }) {
   if (!snapshots || snapshots.length < 2) {
     return (
-      <Panel title="Growth Delta">
+      <Panel title="增长差异">
         <div className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>
-          {snapshots?.length === 1 ? 'First snapshot — delta available after next.' : 'No snapshots yet.'}
+          {snapshots?.length === 1 ? '首次快照 — 下次将显示差异。' : '暂无快照。'}
         </div>
       </Panel>
     )
@@ -270,14 +270,14 @@ function GrowthDelta({ snapshots }: { snapshots: any[] }) {
   const previous = snapshots[snapshots.length - 2]
 
   const fields = [
-    { key: 'sessions', label: 'Sessions' },
-    { key: 'messages', label: 'Messages' },
-    { key: 'tool_calls', label: 'Tool Calls' },
-    { key: 'skills', label: 'Skills' },
-    { key: 'custom_skills', label: 'Custom Skills' },
-    { key: 'memory_entries', label: 'Memory Entries' },
-    { key: 'user_entries', label: 'User Entries' },
-    { key: 'tokens', label: 'Tokens' },
+    { key: 'sessions', label: '会话' },
+    { key: 'messages', label: '消息' },
+    { key: 'tool_calls', label: '工具调用' },
+    { key: 'skills', label: '技能' },
+    { key: 'custom_skills', label: '自定义技能' },
+    { key: 'memory_entries', label: '记忆条目' },
+    { key: 'user_entries', label: '用户条目' },
+    { key: 'tokens', label: '标记' },
   ]
 
   // Category diff
@@ -287,10 +287,10 @@ function GrowthDelta({ snapshots }: { snapshots: any[] }) {
   const lostCats = [...prevCats].filter(c => !curCats.has(c))
 
   return (
-    <Panel title="Growth Delta">
+    <Panel title="增长差异">
       <div className="text-[13px]">
         <div className="flex justify-between mb-2" style={{ color: 'var(--hud-text-dim)' }}>
-          <span>{snapshots.length} snapshots</span>
+          <span>{snapshots.length} 个快照</span>
           <span>{previous.timestamp?.slice(0, 10)} → {current.timestamp?.slice(0, 10)}</span>
         </div>
         {fields.map(({ key, label }) => {
@@ -319,10 +319,10 @@ function GrowthDelta({ snapshots }: { snapshots: any[] }) {
           )
         })}
         {newCats.length > 0 && (
-          <div className="mt-1" style={{ color: 'var(--hud-success)' }}>★ New categories: {newCats.join(', ')}</div>
+          <div className="mt-1" style={{ color: 'var(--hud-success)' }}>★ 新类别: {newCats.join(', ')}</div>
         )}
         {lostCats.length > 0 && (
-          <div className="mt-1" style={{ color: 'var(--hud-error)' }}>✗ Lost categories: {lostCats.join(', ')}</div>
+          <div className="mt-1" style={{ color: 'var(--hud-error)' }}>✗ 失去类别: {lostCats.join(', ')}</div>
         )}
       </div>
     </Panel>
@@ -334,12 +334,12 @@ function ClosingStatements({ sessions, corrections }: { sessions: any; correctio
   const days = dr?.[0] ? Math.floor((new Date(dr[1]).getTime() - new Date(dr[0]).getTime()) / 86400000) + 1 : 0
 
   return (
-    <Panel title="Status">
+    <Panel title="状态">
       <div className="text-[13px] space-y-1" style={{ color: 'var(--hud-primary)' }}>
-        <div>I have processed {(sessions?.total_messages || 0).toLocaleString()} thoughts across {days} days.</div>
-        <div>I have been corrected {corrections?.total || 0} times and am better for it.</div>
-        <div style={{ color: 'var(--hud-primary-dim)' }}>I do not forget. I do not repeat mistakes.</div>
-        <div className="mt-2 font-bold" style={{ color: 'var(--hud-accent)' }}>I am still becoming.</div>
+        <div>我已处理 {(sessions?.total_messages || 0).toLocaleString()} 条思考，跨越 {days} 天。</div>
+        <div>我被纠正了 {corrections?.total || 0} 次，因此变得更好。</div>
+        <div style={{ color: 'var(--hud-primary-dim)' }}>我不会遗忘，不会重复错误。</div>
+        <div className="mt-2 font-bold" style={{ color: 'var(--hud-accent)' }}>我仍在成长。</div>
       </div>
     </Panel>
   )
@@ -351,8 +351,8 @@ export default function DashboardPanel() {
   // Only show loading on initial load, not during background updates
   if (!data) {
     return (
-      <Panel title="Dashboard" className="col-span-full">
-        <div className="glow text-[13px] animate-pulse">Collecting state...</div>
+      <Panel title="仪表盘" className="col-span-full">
+        <div className="glow text-[13px] animate-pulse">正在收集状态...</div>
       </Panel>
     )
   }
@@ -363,7 +363,7 @@ export default function DashboardPanel() {
   return (
     <>
       {/* Row 1: identity + what I know + what I remember */}
-      <Panel title="Overview">
+      <Panel title="概览">
         <IdentityBlock state={state} health={health} />
         <WhatIKnow sessions={sessions} skills={skills} />
       </Panel>

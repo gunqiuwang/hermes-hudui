@@ -21,7 +21,7 @@ export default function ReasoningBlock({ content }: ReasoningBlockProps) {
       >
         <span style={{ color: 'var(--hud-warning)' }}>🧠</span>
         <span style={{ color: 'var(--hud-warning)', fontSize: '12px' }}>
-          {expanded ? 'Thinking...' : 'Thinking (click to expand)'}
+          {expanded ? '思考中...' : '思考中 (点击展开)'}
         </span>
         <span style={{ color: 'var(--hud-text-dim)', fontSize: '11px' }} className="ml-auto">
           {expanded ? '▼' : '▶'}

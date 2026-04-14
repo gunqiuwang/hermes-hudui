@@ -36,7 +36,7 @@ export default function ToolCallCard({ tool }: ToolCallCardProps) {
           <span className="font-bold">{tool.name}</span>
           {isRunning && (
             <span className="animate-pulse" style={{ color: 'var(--hud-warning)' }}>
-              running...
+              运行中...
             </span>
           )}
         </div>
@@ -49,7 +49,7 @@ export default function ToolCallCard({ tool }: ToolCallCardProps) {
           {/* Arguments */}
           <div>
             <div style={{ color: 'var(--hud-text-dim)' }} className="mb-0.5">
-              arguments:
+              参数:
             </div>
             <pre
               className="p-1.5 overflow-x-auto text-[11px]"
@@ -72,7 +72,7 @@ export default function ToolCallCard({ tool }: ToolCallCardProps) {
                 }}
                 className="mb-0.5"
               >
-                {tool.error ? 'error:' : 'result:'}
+                {tool.error ? '错误:' : '结果:'}
               </div>
               <pre
                 className="p-1.5 overflow-x-auto text-[11px]"

@@ -12,7 +12,7 @@ export default function CorrectionsPanel() {
 
   // Only show loading on initial load
   if (isLoading && !data) {
-    return <Panel title="Corrections" className="col-span-full"><div className="glow text-[13px] animate-pulse">Loading...</div></Panel>
+    return <Panel title="修正" className="col-span-full"><div className="glow text-[13px] animate-pulse">加载中...</div></Panel>
   }
 
   const corrections = data.corrections || []
@@ -24,7 +24,7 @@ export default function CorrectionsPanel() {
   }
 
   return (
-    <Panel title={`Corrections & Lessons Learned — ${corrections.length} total`} className="col-span-full">
+    <Panel title={`修正与经验教训 — ${corrections.length} 个总计`} className="col-span-full">
       {/* Summary */}
       <div className="flex gap-4 text-[13px] mb-3">
         {['critical', 'major', 'minor'].map(sev => {
@@ -33,19 +33,19 @@ export default function CorrectionsPanel() {
           const s = SEVERITY[sev]
           return (
             <span key={sev}>
-              <span style={{ color: s.color }}>{s.icon} {count} {sev}</span>
+              <span style={{ color: s.color }}>{s.icon} {count} {sev === 'critical' ? '严重' : sev === 'major' ? '主要' : '轻微'}</span>
             </span>
           )
         })}
         {corrections.length === 0 && (
-          <span style={{ color: 'var(--hud-text-dim)' }}>No corrections recorded yet. This is either impressive or suspicious.</span>
+          <span style={{ color: 'var(--hud-text-dim)' }}>暂无修正记录。这要么令人印象深刻，要么令人怀疑。</span>
         )}
       </div>
 
       {/* Explanation */}
       {corrections.length > 0 && (
         <div className="text-[13px] italic mb-3" style={{ color: 'var(--hud-text-dim)' }}>
-          These are moments where I was wrong, corrected, or learned something the hard way. Critical = user caught a concrete error. Major = gotcha/pitfall absorbed. Minor = limitation noted.
+          这些是我犯错、被纠正或艰难学习的时刻。严重 = 用户发现具体错误。主要 = 吸取的教训/陷阱。轻微 = 注意到的限制。
         </div>
       )}
 
@@ -58,7 +58,7 @@ export default function CorrectionsPanel() {
         return (
           <div key={sev} className="mb-4">
             <div className="text-[13px] font-bold mb-2" style={{ color: s.color }}>
-              {s.icon} {sev.toUpperCase()} ({items.length})
+              {s.icon} {sev === 'critical' ? '严重' : sev === 'major' ? '主要' : '轻微'} ({items.length})
             </div>
             <div className="space-y-2">
               {items.map((cor: any, i: number) => (
@@ -74,7 +74,7 @@ export default function CorrectionsPanel() {
                   </div>
                   <div className="text-[13px]" style={{ color: s.color }}>{cor.detail}</div>
                   {cor.session_title && (
-                    <div className="text-[13px] mt-1" style={{ color: 'var(--hud-text-dim)' }}>↳ session: {cor.session_title}</div>
+                    <div className="text-[13px] mt-1" style={{ color: 'var(--hud-text-dim)' }}>↳ 会话: {cor.session_title}</div>
                   )}
                 </div>
               ))}

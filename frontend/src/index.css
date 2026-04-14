@@ -79,6 +79,28 @@
   --hud-gradient-end: #00ff00;
 }
 
+/* ── Cyberpunk Red ──────────────────────────────────────── */
+[data-theme="cyberpunk"] {
+  --hud-bg-deep: #0a0008;
+  --hud-bg-surface: #120010;
+  --hud-bg-panel: #1a0018;
+  --hud-bg-hover: #240020;
+  --hud-primary: #e06080;
+  --hud-primary-dim: #b04060;
+  --hud-primary-glow: rgba(224, 96, 128, 0.35);
+  --hud-secondary: #00ffff;
+  --hud-accent: #ff00ff;
+  --hud-text: #e0d0d8;
+  --hud-text-dim: #8a5a6a;
+  --hud-border: rgba(224, 96, 128, 0.2);
+  --hud-border-bright: rgba(224, 96, 128, 0.4);
+  --hud-success: #00ffaa;
+  --hud-warning: #ffaa00;
+  --hud-error: #d06070;
+  --hud-gradient-start: #e06080;
+  --hud-gradient-end: #c060c0;
+}
+
 /* ── Anime (Mewtwo) ─────────────────────────────────────── */
 [data-theme="anime"] {
   --hud-bg-deep: #0d001a;

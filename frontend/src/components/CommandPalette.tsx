@@ -72,7 +72,7 @@ export default function CommandPalette({ commands, onSelect }: CommandPalettePro
             ref={inputRef}
             value={query}
             onChange={e => setQuery(e.target.value)}
-            placeholder="Navigate to..."
+            placeholder="导航到..."
             className="w-full bg-transparent outline-none text-[13px] py-1"
             style={{ color: 'var(--hud-text)' }}
           />
@@ -103,15 +103,15 @@ export default function CommandPalette({ commands, onSelect }: CommandPalettePro
           ))}
           {filtered.length === 0 && (
             <div className="px-3 py-3 text-[13px] text-center" style={{ color: 'var(--hud-text-dim)' }}>
-              No results for "{query}"
+              未找到 "{query}" 的结果
             </div>
           )}
         </div>
 
         {/* Footer */}
         <div className="px-3 py-1 text-[9px] flex justify-between" style={{ color: 'var(--hud-text-dim)', borderTop: '1px solid var(--hud-border)' }}>
-          <span>type to filter</span>
-          <span>ESC to close</span>
+          <span>输入以筛选</span>
+          <span>ESC 关闭</span>
         </div>
       </div>
     </div>

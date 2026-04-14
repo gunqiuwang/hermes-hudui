@@ -83,8 +83,8 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
         {BOOT_LINES.slice(0, visibleLines).map((line, i) => (
           <div key={i} className="py-0.5" style={{
             color: line.startsWith('"') ? 'var(--hud-accent)' :
-                   line.startsWith('☤') ? 'var(--hud-primary)' :
-                   line === 'Systems ready.' ? 'var(--hud-success)' :
+                   line.startsWith('🤖') ? 'var(--hud-primary)' :
+                   line === '系统就绪。' ? 'var(--hud-success)' :
                    'var(--hud-text-dim)',
             fontStyle: line.startsWith('"') ? 'italic' : 'normal',
           }}>
@@ -97,7 +97,7 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
       </div>
 
       <div className="absolute bottom-6 text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>
-        tap to skip
+        点击跳过
       </div>
     </div>
   )

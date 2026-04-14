@@ -23,32 +23,32 @@ function ProfileCard({ p }: { p: any }) {
         <span className="font-bold text-[14px]" style={{ color: 'var(--hud-primary)' }}>
           {p.name}
         </span>
-        {p.is_default && <span className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>(default)</span>}
+        {p.is_default && <span className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>(默认)</span>}
         <span className="text-[13px] px-1.5 py-0.5 ml-auto"
           style={{ background: 'var(--hud-bg-hover)', color: p.is_local ? 'var(--hud-secondary)' : 'var(--hud-accent)' }}>
-          {p.is_local ? 'local' : p.provider}
+          {p.is_local ? '本地' : p.provider}
         </span>
         {p.gateway_status === 'active' && (
-          <span className="text-[13px]" style={{ color: 'var(--hud-success)' }}>gateway up</span>
+          <span className="text-[13px]" style={{ color: 'var(--hud-success)' }}>网关运行中</span>
         )}
         {p.server_status === 'running' && (
-          <span className="text-[13px]" style={{ color: 'var(--hud-success)' }}>server up</span>
+          <span className="text-[13px]" style={{ color: 'var(--hud-success)' }}>服务器运行中</span>
         )}
       </div>
 
       {/* Model & Backend */}
       <div className="space-y-1 text-[13px] mb-3">
         <div className="grid grid-cols-[80px_1fr] gap-1">
-          <span style={{ color: 'var(--hud-text-dim)' }}>Model</span>
+          <span style={{ color: 'var(--hud-text-dim)' }}>模型</span>
           <span>
-            <span className="font-bold">{p.model || 'not set'}</span>
+            <span className="font-bold">{p.model || '未设置'}</span>
             {p.provider && <span style={{ color: 'var(--hud-text-dim)' }}> via {p.provider}</span>}
           </span>
         </div>
 
         {p.base_url && (
           <div className="grid grid-cols-[80px_1fr] gap-1">
-            <span style={{ color: 'var(--hud-text-dim)' }}>Backend</span>
+            <span style={{ color: 'var(--hud-text-dim)' }}>后端</span>
             <span>
               <span style={{ color: 'var(--hud-text-dim)' }}>{p.base_url}</span>
               {' '}<StatusDot status={p.server_status} />
@@ -58,21 +58,21 @@ function ProfileCard({ p }: { p: any }) {
 
         {p.context_length > 0 && (
           <div className="grid grid-cols-[80px_1fr] gap-1">
-            <span style={{ color: 'var(--hud-text-dim)' }}>Context</span>
-            <span style={{ color: 'var(--hud-text-dim)' }}>{p.context_length.toLocaleString()} tokens</span>
+            <span style={{ color: 'var(--hud-text-dim)' }}>上下文</span>
+            <span style={{ color: 'var(--hud-text-dim)' }}>{p.context_length.toLocaleString()} 个标记</span>
           </div>
         )}
 
         {p.skin && (
           <div className="grid grid-cols-[80px_1fr] gap-1">
-            <span style={{ color: 'var(--hud-text-dim)' }}>Skin</span>
+            <span style={{ color: 'var(--hud-text-dim)' }}>主题</span>
             <span style={{ color: 'var(--hud-text-dim)' }}>{p.skin}</span>
           </div>
         )}
 
         {p.soul_summary && (
           <div className="grid grid-cols-[80px_1fr] gap-1">
-            <span style={{ color: 'var(--hud-text-dim)' }}>Soul</span>
+            <span style={{ color: 'var(--hud-text-dim)' }}>灵魂</span>
             <span className="italic" style={{ color: 'var(--hud-text)' }}>{p.soul_summary.slice(0, 80)}{p.soul_summary.length > 80 ? '...' : ''}</span>
           </div>
         )}
@@ -83,64 +83,64 @@ function ProfileCard({ p }: { p: any }) {
         <div className="grid grid-cols-3 gap-2 mb-2">
           <div>
             <span style={{ color: 'var(--hud-primary)' }} className="font-bold">{p.session_count}</span>
-            <span style={{ color: 'var(--hud-text-dim)' }}> sessions</span>
+            <span style={{ color: 'var(--hud-text-dim)' }}> 个会话</span>
           </div>
           <div>
             <span style={{ color: 'var(--hud-primary)' }} className="font-bold">{p.message_count.toLocaleString()}</span>
-            <span style={{ color: 'var(--hud-text-dim)' }}> messages</span>
+            <span style={{ color: 'var(--hud-text-dim)' }}> 条消息</span>
           </div>
           <div>
             <span style={{ color: 'var(--hud-primary)' }} className="font-bold">{p.tool_call_count.toLocaleString()}</span>
-            <span style={{ color: 'var(--hud-text-dim)' }}> tools</span>
+            <span style={{ color: 'var(--hud-text-dim)' }}> 次工具调用</span>
           </div>
         </div>
         <div className="grid grid-cols-[80px_1fr] gap-1">
-          <span style={{ color: 'var(--hud-text-dim)' }}>Tokens</span>
+          <span style={{ color: 'var(--hud-text-dim)' }}>标记</span>
           <span style={{ color: 'var(--hud-text-dim)' }}>
-            {formatTokens(p.total_tokens)} total ({formatTokens(p.total_input_tokens)} in / {formatTokens(p.total_output_tokens)} out)
+            {formatTokens(p.total_tokens)} 总计 ({formatTokens(p.total_input_tokens)} 输入 / {formatTokens(p.total_output_tokens)} 输出)
           </span>
         </div>
         <div className="grid grid-cols-[80px_1fr] gap-1">
-          <span style={{ color: 'var(--hud-text-dim)' }}>Active</span>
+          <span style={{ color: 'var(--hud-text-dim)' }}>活跃</span>
           <span style={{ color: 'var(--hud-text-dim)' }}>{timeAgo(p.last_active)}</span>
         </div>
       </div>
 
       {/* Memory */}
       <div className="mb-3">
-        <CapacityBar value={p.memory_chars || 0} max={p.memory_max_chars || 2200} label="MEMORY" />
+        <CapacityBar value={p.memory_chars || 0} max={p.memory_max_chars || 2200} label="记忆" />
         <div className="text-[13px] mb-1" style={{ color: 'var(--hud-text-dim)' }}>
-          {p.memory_entries} entries, {p.memory_chars}/{p.memory_max_chars} chars
+          {p.memory_entries} 个条目, {p.memory_chars}/{p.memory_max_chars} 字符
         </div>
-        <CapacityBar value={p.user_chars || 0} max={p.user_max_chars || 1375} label="USER" />
+        <CapacityBar value={p.user_chars || 0} max={p.user_max_chars || 1375} label="用户" />
         <div className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>
-          {p.user_entries} entries, {p.user_chars}/{p.user_max_chars} chars
+          {p.user_entries} 个条目, {p.user_chars}/{p.user_max_chars} 字符
         </div>
       </div>
 
       {/* Skills, Cron, Toolsets */}
       <div className="space-y-1 text-[13px]">
         <div className="grid grid-cols-[80px_1fr] gap-1">
-          <span style={{ color: 'var(--hud-text-dim)' }}>Skills</span>
+          <span style={{ color: 'var(--hud-text-dim)' }}>技能</span>
           <span>
             <span className="font-bold">{p.skill_count}</span>
-            <span style={{ color: 'var(--hud-text-dim)' }}> · Cron jobs </span>
+            <span style={{ color: 'var(--hud-text-dim)' }}> · 定时任务 </span>
             <span className="font-bold">{p.cron_job_count}</span>
           </span>
         </div>
 
         {p.toolsets?.length > 0 && (
           <div className="grid grid-cols-[80px_1fr] gap-1">
-            <span style={{ color: 'var(--hud-text-dim)' }}>Toolsets</span>
+            <span style={{ color: 'var(--hud-text-dim)' }}>工具集</span>
             <span style={{ color: 'var(--hud-text-dim)' }}>{p.toolsets.join(', ')}</span>
           </div>
         )}
 
         {p.compression_enabled && (
           <div className="grid grid-cols-[80px_1fr] gap-1">
-            <span style={{ color: 'var(--hud-text-dim)' }}>Compress</span>
+            <span style={{ color: 'var(--hud-text-dim)' }}>压缩</span>
             <span>
-              <span style={{ color: 'var(--hud-success)' }}>on</span>
+              <span style={{ color: 'var(--hud-success)' }}>开启</span>
               {p.compression_model && <span style={{ color: 'var(--hud-text-dim)' }}> · {p.compression_model}</span>}
             </span>
           </div>
@@ -148,16 +148,16 @@ function ProfileCard({ p }: { p: any }) {
 
         {/* Services */}
         <div className="grid grid-cols-[80px_1fr] gap-1">
-          <span style={{ color: 'var(--hud-text-dim)' }}>Gateway</span>
+          <span style={{ color: 'var(--hud-text-dim)' }}>网关</span>
           <span><StatusDot status={p.gateway_status} /> {p.gateway_status}
-            <span className="ml-3">Server <StatusDot status={p.server_status} /> {p.server_status}</span>
+            <span className="ml-3">服务器 <StatusDot status={p.server_status} /> {p.server_status}</span>
           </span>
         </div>
 
         {/* API Keys */}
         {p.api_keys?.length > 0 && (
           <div className="grid grid-cols-[80px_1fr] gap-1">
-            <span style={{ color: 'var(--hud-text-dim)' }}>Keys</span>
+            <span style={{ color: 'var(--hud-text-dim)' }}>密钥</span>
             <span style={{ color: 'var(--hud-text-dim)' }}>{p.api_keys.join(', ')}</span>
           </div>
         )}
@@ -165,10 +165,10 @@ function ProfileCard({ p }: { p: any }) {
         {/* Alias */}
         {p.has_alias && (
           <div className="grid grid-cols-[80px_1fr] gap-1">
-            <span style={{ color: 'var(--hud-text-dim)' }}>Alias</span>
+            <span style={{ color: 'var(--hud-text-dim)' }}>别名</span>
             <span>
               <span style={{ color: 'var(--hud-success)' }}>{p.name}</span>
-              <span style={{ color: 'var(--hud-text-dim)' }}> (on PATH)</span>
+              <span style={{ color: 'var(--hud-text-dim)' }}> (在 PATH 中)</span>
             </span>
           </div>
         )}
@@ -182,13 +182,13 @@ export default function ProfilesPanel() {
 
   // Only show loading on initial load
   if (isLoading && !data) {
-    return <Panel title="Profiles" className="col-span-full"><div className="glow text-[13px] animate-pulse">Loading...</div></Panel>
+    return <Panel title="配置" className="col-span-full"><div className="glow text-[13px] animate-pulse">加载中...</div></Panel>
   }
 
   const profiles = data.profiles || []
 
   return (
-    <Panel title={`Agent Profiles — ${data.total || 0} total, ${data.active_count || 0} active`} className="col-span-full">
+    <Panel title={`代理配置 — ${data.total || 0} 个总计, ${data.active_count || 0} 个活跃`} className="col-span-full">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         {profiles.map((p: any) => (
           <ProfileCard key={p.name} p={p} />

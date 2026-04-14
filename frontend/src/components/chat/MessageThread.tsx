@@ -21,8 +21,8 @@ export default function MessageThread({ messages }: MessageThreadProps) {
       {messages.length === 0 ? (
         <div className="h-full flex items-center justify-center">
           <div className="text-center" style={{ color: 'var(--hud-text-dim)' }}>
-            <div className="text-[14px] mb-1">No messages yet</div>
-            <div className="text-[12px]">Start a conversation below</div>
+            <div className="text-[14px] mb-1">暂无消息</div>
+            <div className="text-[12px]">在下方开始对话</div>
           </div>
         </div>
       ) : (

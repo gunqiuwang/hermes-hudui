@@ -46,7 +46,7 @@ function TranscriptViewer({ sessionId, onClose }: { sessionId: string; onClose: 
             className="text-[13px] px-2 py-0.5 cursor-pointer"
             style={{ color: 'var(--hud-text-dim)' }}
           >
-            ✕ Close
+            ✕ 关闭
           </button>
         </div>
 
@@ -54,12 +54,12 @@ function TranscriptViewer({ sessionId, onClose }: { sessionId: string; onClose: 
         <div className="flex-1 overflow-y-auto px-4 py-3">
           {isLoading && (
             <div className="text-[13px] animate-pulse" style={{ color: 'var(--hud-text-dim)' }}>
-              Loading transcript...
+              正在加载记录...
             </div>
           )}
           {!isLoading && data?.messages?.length === 0 && (
             <div className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>
-              No messages found.
+              未找到消息。
             </div>
           )}
           {!isLoading && data?.messages?.map((msg: any) => (
@@ -67,7 +67,7 @@ function TranscriptViewer({ sessionId, onClose }: { sessionId: string; onClose: 
               <MessageBubble role={msg.role} content={msg.content} />
               {msg.token_count > 0 && (
                 <div className="text-[10px] mb-1 text-right" style={{ color: 'var(--hud-text-dim)', marginTop: '-8px' }}>
-                  {msg.token_count.toLocaleString()} tokens
+                  {msg.token_count.toLocaleString()} 个标记
                 </div>
               )}
             </div>
@@ -84,13 +84,13 @@ function SearchResults({ query, onSelect }: { query: string; onSelect: (id: stri
   const { data, isLoading } = useApi(`/sessions/search?q=${encodeURIComponent(query)}`, 0)
 
   if (isLoading) {
-    return <div className="text-[13px] animate-pulse py-2" style={{ color: 'var(--hud-text-dim)' }}>Searching...</div>
+    return <div className="text-[13px] animate-pulse py-2" style={{ color: 'var(--hud-text-dim)' }}>搜索中...</div>
   }
 
   const results = data || []
 
   if (!results.length) {
-    return <div className="text-[13px] py-2" style={{ color: 'var(--hud-text-dim)' }}>No results for "{query}"</div>
+    return <div className="text-[13px] py-2" style={{ color: 'var(--hud-text-dim)' }}>未找到 "{query}" 的结果</div>
   }
 
   return (
@@ -114,7 +114,7 @@ function SearchResults({ query, onSelect }: { query: string; onSelect: (id: stri
             />
             <span className="flex-1 truncate">{r.title}</span>
             <span className="text-[11px] shrink-0" style={{ color: 'var(--hud-text-dim)' }}>
-              {r.match_type === 'content' ? 'content' : 'title'}
+              {r.match_type === 'content' ? '内容' : '标题'}
             </span>
           </div>
           {r.snippet && (
@@ -147,7 +147,7 @@ export default function SessionsPanel() {
   }, [])
 
   if (isLoading && !data) {
-    return <Panel title="Sessions" className="col-span-full"><div className="glow text-[13px] animate-pulse">Loading...</div></Panel>
+    return <Panel title="会话" className="col-span-full"><div className="glow text-[13px] animate-pulse">加载中...</div></Panel>
   }
 
   const sessions = data.sessions || []
@@ -168,19 +168,19 @@ export default function SessionsPanel() {
         />
       )}
 
-      <Panel title="Session Activity" className="col-span-2">
+      <Panel title="会话活动" className="col-span-2">
         <div className="flex gap-6 mb-3 text-[13px]">
           <div>
             <span className="stat-value text-base">{data.total_sessions || 0}</span>
-            <span className="stat-label ml-1">sessions</span>
+            <span className="stat-label ml-1">个会话</span>
           </div>
           <div>
             <span className="stat-value text-base">{(data.total_messages || 0).toLocaleString()}</span>
-            <span className="stat-label ml-1">messages</span>
+            <span className="stat-label ml-1">条消息</span>
           </div>
           <div>
             <span className="stat-value text-base">{(data.total_tokens || 0).toLocaleString()}</span>
-            <span className="stat-label ml-1">tokens</span>
+            <span className="stat-label ml-1">个标记</span>
           </div>
           {Object.entries(bySource).map(([src, count]: any) => (
             <div key={src}>
@@ -190,23 +190,23 @@ export default function SessionsPanel() {
           ))}
         </div>
         <div className="mb-2">
-          <div className="text-[13px] uppercase tracking-wider mb-1" style={{ color: 'var(--hud-text-dim)' }}>Messages/day</div>
+          <div className="text-[13px] uppercase tracking-wider mb-1" style={{ color: 'var(--hud-text-dim)' }}>每日消息</div>
           <Sparkline values={dailyMessages} width={500} height={50} />
         </div>
         <div>
-          <div className="text-[13px] uppercase tracking-wider mb-1" style={{ color: 'var(--hud-text-dim)' }}>Sessions/day</div>
+          <div className="text-[13px] uppercase tracking-wider mb-1" style={{ color: 'var(--hud-text-dim)' }}>每日会话</div>
           <Sparkline values={dailySessions} width={500} height={30} />
         </div>
       </Panel>
 
-      <Panel title="Recent Sessions">
+      <Panel title="最近会话">
         {/* Search bar */}
         <form onSubmit={handleSearch} className="flex gap-1 mb-2">
           <input
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Search sessions..."
+            placeholder="搜索会话..."
             className="flex-1 px-2 py-1 text-[13px] outline-none"
             style={{
               background: 'var(--hud-bg-deep)',
@@ -230,7 +230,7 @@ export default function SessionsPanel() {
               className="px-2 py-1 text-[12px] cursor-pointer disabled:opacity-40"
               style={{ background: 'var(--hud-primary)', color: 'var(--hud-bg-deep)', border: 'none' }}
             >
-              Search
+              搜索
             </button>
           )}
         </form>
@@ -248,13 +248,13 @@ export default function SessionsPanel() {
                 style={{ borderBottom: '1px solid var(--hud-border)', background: 'transparent' }}
                 onMouseEnter={hoverOn}
                 onMouseLeave={hoverOff}
-                title="Click to read transcript"
+                title="点击查看记录"
               >
                 <span className="w-2 h-2 rounded-full flex-shrink-0"
                   style={{ background: sourceColor(s.source) }} />
                 <span className="flex-1 truncate">{s.title || s.id.slice(0, 8)}</span>
                 <span className="tabular-nums" style={{ color: 'var(--hud-text-dim)' }}>
-                  {s.message_count}m {s.tool_call_count}t
+                  {s.message_count}条 {s.tool_call_count}次
                 </span>
               </button>
             ))}

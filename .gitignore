@@ -46,3 +46,7 @@ CLAUDE.md
 # Build artifacts
 backend/static/assets/
 backend/static/index.html
+
+# Virtual environments
+venv_name/
+venv_new/

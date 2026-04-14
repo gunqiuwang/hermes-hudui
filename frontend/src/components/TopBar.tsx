@@ -8,9 +8,9 @@ export const TABS = [
   { id: 'sessions', label: '会话', key: '4' },
   { id: 'cron', label: '定时任务', key: '5' },
   { id: 'projects', label: '项目', key: '6' },
-  { id: 'health', label: '健康', key: '7' },
+  { id: 'chat', label: '聊天', key: '7' },  // 交换位置：聊天移到健康的位置
   { id: 'agents', label: '代理', key: '8' },
-  { id: 'chat', label: '聊天', key: '9' },
+  { id: 'health', label: '健康', key: '9' },  // 交换位置：健康移到聊天的位置
   { id: 'profiles', label: '配置', key: '0' },
   { id: 'token-costs', label: '成本', key: null },  // Click only, no hotkey
   { id: 'corrections', label: '修正', key: null },
@@ -69,7 +69,7 @@ export default function TopBar({ activeTab, onTabChange }: TopBarProps) {
          style={{ borderColor: 'var(--hud-border)', background: 'var(--hud-bg-surface)' }}>
       {/* Logo */}
       <span className="gradient-text font-bold text-[13px] mr-3 tracking-wider cursor-pointer shrink-0"
-            onClick={() => onTabChange('dashboard')}>🤖 代理监控</span>
+            onClick={() => onTabChange('dashboard')}>💐 代理监控</span>
 
       {/* Tabs */}
       <div className="flex gap-0.5 flex-1 overflow-x-auto" style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}>
@@ -79,14 +79,21 @@ export default function TopBar({ activeTab, onTabChange }: TopBarProps) {
             onClick={() => onTabChange(tab.id)}
             className="px-2 py-1.5 text-[13px] tracking-widest uppercase transition-all duration-150 shrink-0 cursor-pointer"
             style={{
-              color: activeTab === tab.id ? 'var(--hud-primary)' : 'var(--hud-text-dim)',
-              background: activeTab === tab.id ? 'var(--hud-bg-panel)' : 'transparent',
-              borderBottom: activeTab === tab.id ? '2px solid var(--hud-primary)' : '2px solid transparent',
-              textShadow: activeTab === tab.id ? '0 0 8px var(--hud-primary-glow)' : 'none',
+              color: activeTab === tab.id ? 'var(--hud-primary)' : tab.id === 'chat' ? '#fbbf24' : 'var(--hud-text-dim)',
+              background: activeTab === tab.id ? 'var(--hud-bg-panel)' : tab.id === 'chat' ? 'rgba(251, 191, 36, 0.08)' : 'transparent',
+              borderBottom: activeTab === tab.id ? '2px solid var(--hud-primary)' : tab.id === 'chat' ? '2px solid #fbbf24' : '2px solid transparent',
+              textShadow: activeTab === tab.id ? '0 0 8px var(--hud-primary-glow)' : tab.id === 'chat' ? '0 0 6px rgba(251, 191, 36, 0.4)' : 'none',
               minHeight: '32px',
+              fontWeight: tab.id === 'chat' ? 700 : 400,
+              borderLeft: tab.id === 'chat' ? '2px solid rgba(251, 191, 36, 0.5)' : 'none',
+              borderRight: tab.id === 'chat' ? '2px solid rgba(251, 191, 36, 0.5)' : 'none',
+              borderTop: tab.id === 'chat' ? '2px solid rgba(251, 191, 36, 0.5)' : 'none',
+              borderRadius: tab.id === 'chat' ? '4px 4px 0 0' : '0',
+              marginLeft: tab.id === 'chat' ? '6px' : '0',
+              marginRight: tab.id === 'chat' ? '6px' : '0',
             }}
           >
-            {tab.key && <span className="opacity-40 mr-1">{tab.key}</span>}
+{tab.id === 'chat' ? '🤖 ' : ''}{tab.key && <span className="opacity-40 mr-1">{tab.key}</span>}
             {tab.label}
           </button>
         ))}

@@ -83,10 +83,10 @@ export default function ChatPanel() {
   // Show loading while checking availability
   if (checkingAvailability) {
     return (
-      <Panel title="Chat" className="col-span-full h-full">
+      <Panel title="聊天" className="col-span-full h-full">
         <div className="h-full flex items-center justify-center">
           <div className="text-[13px] animate-pulse" style={{ color: 'var(--hud-text-dim)' }}>
-            Checking chat availability...
+            正在检查聊天可用性...
           </div>
         </div>
       </Panel>
@@ -96,17 +96,17 @@ export default function ChatPanel() {
   // Show unavailable state
   if (!chatAvailable) {
     return (
-      <Panel title="Chat" className="col-span-full h-full">
+      <Panel title="聊天" className="col-span-full h-full">
         <div className="h-full flex items-center justify-center p-4">
           <div className="text-center max-w-md">
             <div className="text-[14px] mb-2" style={{ color: 'var(--hud-error)' }}>
-              Chat Not Available
+              聊天不可用
             </div>
             <div className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>
-              To enable chat, either:
+              要启用聊天，请：
               <ul className="mt-2 space-y-1 text-left">
-                <li>• Install hermes-agent: <code className="text-[var(--hud-primary)]">pip install hermes-agent</code></li>
-                <li>• Or start Hermes in a tmux session: <code className="text-[var(--hud-primary)]">tmux new -s hermes</code></li>
+                <li>• 安装 hermes-agent: <code className="text-[var(--hud-primary)]">pip install hermes-agent</code></li>
+                <li>• 或在 tmux 会话中启动 Hermes: <code className="text-[var(--hud-primary)]">tmux new -s hermes</code></li>
               </ul>
             </div>
           </div>
@@ -118,17 +118,17 @@ export default function ChatPanel() {
   // Show error state
   if (error) {
     return (
-      <Panel title="Chat" className="col-span-full h-full">
+      <Panel title="聊天" className="col-span-full h-full">
         <div className="h-full flex flex-col">
           <div className="p-2 text-[12px]" style={{ color: 'var(--hud-error)', background: 'var(--hud-bg-surface)' }}>
-            Error: {error}
+            错误: {error}
           </div>
           <button
             onClick={refreshSessions}
             className="m-2 px-3 py-1.5 text-[12px] cursor-pointer"
             style={{ background: 'var(--hud-primary)', color: 'var(--hud-bg-deep)' }}
           >
-            Retry
+            重试
           </button>
         </div>
       </Panel>
@@ -136,7 +136,7 @@ export default function ChatPanel() {
   }
 
   return (
-    <Panel title="Chat" className="h-full" noPadding>
+    <Panel title="聊天" className="h-full" noPadding>
       <div className="flex-1 flex overflow-hidden">
         {/* Sidebar */}
         <div className="w-48 shrink-0 overflow-hidden">
@@ -164,8 +164,8 @@ export default function ChatPanel() {
           ) : (
             <div className="flex-1 flex items-center justify-center">
               <div className="text-center" style={{ color: 'var(--hud-text-dim)' }}>
-                <div className="text-[14px] mb-1">Select or create a session</div>
-                <div className="text-[12px]">Choose from the sidebar to start chatting</div>
+                <div className="text-[14px] mb-1">选择或创建会话</div>
+                <div className="text-[12px]">从侧边栏选择以开始聊天</div>
               </div>
             </div>
           )}

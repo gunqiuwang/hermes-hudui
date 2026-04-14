@@ -15,7 +15,7 @@ function SkillItem({ skill, variant }: { skill: any; variant: 'category' | 'rece
           </span>
         )}
         {skill.is_custom && (
-          <span className="text-[13px] px-1" style={{ background: 'var(--hud-accent)', color: 'var(--hud-bg-deep)' }}>custom</span>
+          <span className="text-[13px] px-1" style={{ background: 'var(--hud-accent)', color: 'var(--hud-bg-deep)' }}>自定义</span>
         )}
         {variant === 'category' && (
           <span className="text-[13px] ml-auto" style={{ color: 'var(--hud-text-dim)' }}>
@@ -42,7 +42,7 @@ export default function SkillsPanel() {
 
   // Only show loading on initial load
   if (isLoading && !data) {
-    return <Panel title="Skills" className="col-span-full"><div className="glow text-[13px] animate-pulse">Scanning skill library...</div></Panel>
+    return <Panel title="技能" className="col-span-full"><div className="glow text-[13px] animate-pulse">正在扫描技能库...</div></Panel>
   }
 
   const catCounts: Record<string, number> = data.category_counts || {}
@@ -59,16 +59,16 @@ export default function SkillsPanel() {
   return (
     <>
       {/* Category overview */}
-      <Panel title="Skill Library" className="col-span-1">
+      <Panel title="技能库" className="col-span-1">
         <div className="flex gap-2 mb-3">
           <span className="text-[13px] px-2 py-0.5" style={{ background: 'var(--hud-bg-panel)', color: 'var(--hud-primary)' }}>
-            {data.total} total
+            {data.total} 总计
           </span>
           <span className="text-[13px] px-2 py-0.5" style={{ background: 'var(--hud-bg-panel)', color: 'var(--hud-accent)' }}>
-            {data.custom_count} custom
+            {data.custom_count} 自定义
           </span>
           <span className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>
-            {sorted.length} categories
+            {sorted.length} 个类别
           </span>
         </div>
 
@@ -116,18 +116,18 @@ export default function SkillsPanel() {
               <SkillItem key={skill.name} skill={skill} variant="category" />
             ))}
             {catSkills.length === 0 && (
-              <div className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>No skills in this category</div>
+              <div className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>此类别中暂无技能</div>
             )}
           </div>
         </Panel>
       ) : (
-        <Panel title="Recently Modified">
+        <Panel title="最近修改">
           <div className="space-y-2">
             {recentlyMod.map((skill: any) => (
               <SkillItem key={skill.name} skill={skill} variant="recent" />
             ))}
             {recentlyMod.length === 0 && (
-              <div className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>No recent modifications</div>
+              <div className="text-[13px]" style={{ color: 'var(--hud-text-dim)' }}>暂无最近修改</div>
             )}
           </div>
         </Panel>

@@ -20,40 +20,40 @@ function ModelCard({ m }: { m: any }) {
       <div className="flex items-center justify-between mb-2">
         <span className="font-bold text-[13px]" style={{ color: 'var(--hud-primary)' }}>{m.model}</span>
         <span className="text-[13px] px-1.5 py-0.5" style={{ background: 'var(--hud-bg-hover)', color: pricingColor }}>
-          {isFree ? 'free' : `$${m.cost.toFixed(2)}`}
+          {isFree ? '免费' : `$${m.cost.toFixed(2)}`}
         </span>
       </div>
       <div className="grid grid-cols-3 gap-2 text-[13px] mb-2">
-        <div><span style={{ color: 'var(--hud-primary)' }}>{m.session_count}</span> <span style={{ color: 'var(--hud-text-dim)' }}>sess</span></div>
-        <div><span style={{ color: 'var(--hud-primary)' }}>{m.message_count.toLocaleString()}</span> <span style={{ color: 'var(--hud-text-dim)' }}>msgs</span></div>
-        <div><span style={{ color: 'var(--hud-primary)' }}>{formatTokens(m.input_tokens + m.output_tokens)}</span> <span style={{ color: 'var(--hud-text-dim)' }}>tok</span></div>
+        <div><span style={{ color: 'var(--hud-primary)' }}>{m.session_count}</span> <span style={{ color: 'var(--hud-text-dim)' }}>会话</span></div>
+        <div><span style={{ color: 'var(--hud-primary)' }}>{m.message_count.toLocaleString()}</span> <span style={{ color: 'var(--hud-text-dim)' }}>消息</span></div>
+        <div><span style={{ color: 'var(--hud-primary)' }}>{formatTokens(m.input_tokens + m.output_tokens)}</span> <span style={{ color: 'var(--hud-text-dim)' }}>标记</span></div>
       </div>
       <div className="text-[13px] space-y-0.5" style={{ color: 'var(--hud-text-dim)' }}>
         <div className="flex justify-between">
-          <span>Input</span><span>{formatTokens(m.input_tokens)}</span>
+          <span>输入</span><span>{formatTokens(m.input_tokens)}</span>
         </div>
         <div className="flex justify-between">
-          <span>Output</span><span>{formatTokens(m.output_tokens)}</span>
+          <span>输出</span><span>{formatTokens(m.output_tokens)}</span>
         </div>
         {m.cache_read_tokens > 0 && (
           <div className="flex justify-between">
-            <span>Cache read</span><span>{formatTokens(m.cache_read_tokens)}</span>
+            <span>缓存读取</span><span>{formatTokens(m.cache_read_tokens)}</span>
           </div>
         )}
       </div>
       {!isFree && (
         <div className="mt-2 pt-2 text-[13px] font-bold flex justify-between" style={{ borderTop: '1px solid var(--hud-border)' }}>
-          <span>Cost</span>
+          <span>费用</span>
           <span style={{ color: 'var(--hud-accent)' }}>${m.cost.toFixed(2)}</span>
         </div>
       )}
       {isFree && (
         <div className="mt-2 pt-2 text-[13px]" style={{ borderTop: '1px solid var(--hud-border)', color: 'var(--hud-success)' }}>
-          Local model — $0.00
+          本地模型 — $0.00
         </div>
       )}
       <div className="text-[13px] mt-1" style={{ color: 'var(--hud-text-dim)' }}>
-        Pricing: {m.matched_pricing}
+        定价: {m.matched_pricing}
       </div>
     </div>
   )
@@ -64,7 +64,7 @@ export default function TokenCostsPanel() {
 
   // Only show loading on initial load
   if (isLoading && !data) {
-    return <Panel title="Token Costs" className="col-span-full"><div className="glow text-[13px] animate-pulse">Calculating costs...</div></Panel>
+    return <Panel title="标记成本" className="col-span-full"><div className="glow text-[13px] animate-pulse">正在计算成本...</div></Panel>
   }
 
   const { today, all_time: allTime, by_model: byModel, daily_trend: dailyTrend } = data
@@ -85,53 +85,53 @@ export default function TokenCostsPanel() {
   return (
     <>
       {/* Today */}
-      <Panel title={`Today — $${today.estimated_cost_usd.toFixed(2)}`}>
+      <Panel title={`今日 — $${today.estimated_cost_usd.toFixed(2)}`}>
         <div className="grid grid-cols-2 gap-3 mb-3">
-          <StatCard value={today.session_count} label="sessions" />
-          <StatCard value={today.message_count} label="messages" />
+          <StatCard value={today.session_count} label="会话" />
+          <StatCard value={today.message_count} label="消息" />
         </div>
         <div className="text-[13px] space-y-1">
-          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>Input</span><span>{formatTokens(today.input_tokens)}</span></div>
-          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>Output</span><span>{formatTokens(today.output_tokens)}</span></div>
-          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>Cache read</span><span>{formatTokens(today.cache_read_tokens)}</span></div>
+          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>输入</span><span>{formatTokens(today.input_tokens)}</span></div>
+          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>输出</span><span>{formatTokens(today.output_tokens)}</span></div>
+          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>缓存读取</span><span>{formatTokens(today.cache_read_tokens)}</span></div>
           <div className="flex justify-between font-bold pt-1" style={{ borderTop: '1px solid var(--hud-border)' }}>
-            <span>Total</span><span>{formatTokens(today.total_tokens)}</span>
+            <span>总计</span><span>{formatTokens(today.total_tokens)}</span>
           </div>
         </div>
         <div className="mt-3 text-[20px] font-bold text-center" style={{ color: 'var(--hud-accent)' }}>
           ${today.estimated_cost_usd.toFixed(2)}
         </div>
-        <div className="text-[13px] text-center" style={{ color: 'var(--hud-text-dim)' }}>estimated today</div>
+        <div className="text-[13px] text-center" style={{ color: 'var(--hud-text-dim)' }}>今日预估</div>
       </Panel>
 
       {/* All time */}
-      <Panel title={`All Time — $${allTime.estimated_cost_usd.toFixed(2)}`}>
+      <Panel title={`总计 — $${allTime.estimated_cost_usd.toFixed(2)}`}>
         <div className="grid grid-cols-2 gap-3 mb-3">
-          <StatCard value={allTime.session_count} label="sessions" />
-          <StatCard value={(allTime.message_count || 0).toLocaleString()} label="messages" />
-          <StatCard value={formatTokens(allTime.total_tokens)} label="total tokens" />
-          <StatCard value={(allTime.tool_call_count || 0).toLocaleString()} label="tool calls" />
+          <StatCard value={allTime.session_count} label="会话" />
+          <StatCard value={(allTime.message_count || 0).toLocaleString()} label="消息" />
+          <StatCard value={formatTokens(allTime.total_tokens)} label="总标记" />
+          <StatCard value={(allTime.tool_call_count || 0).toLocaleString()} label="工具调用" />
         </div>
 
         {/* Cost by type */}
         <div className="text-[13px] space-y-0.5 mt-2 pt-2" style={{ borderTop: '1px solid var(--hud-border)' }}>
-          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>Input cost</span><span style={{ color: 'var(--hud-primary)' }}>${totalInputCost.toFixed(2)}</span></div>
-          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>Output cost</span><span style={{ color: 'var(--hud-accent)' }}>${totalOutputCost.toFixed(2)}</span></div>
-          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>Cache read</span><span style={{ color: 'var(--hud-success)' }}>${totalCacheRCost.toFixed(2)}</span></div>
-          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>Cache write</span><span style={{ color: 'var(--hud-warning)' }}>${totalCacheWCost.toFixed(2)}</span></div>
+          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>输入成本</span><span style={{ color: 'var(--hud-primary)' }}>${totalInputCost.toFixed(2)}</span></div>
+          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>输出成本</span><span style={{ color: 'var(--hud-accent)' }}>${totalOutputCost.toFixed(2)}</span></div>
+          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>缓存读取</span><span style={{ color: 'var(--hud-success)' }}>${totalCacheRCost.toFixed(2)}</span></div>
+          <div className="flex justify-between"><span style={{ color: 'var(--hud-text-dim)' }}>缓存写入</span><span style={{ color: 'var(--hud-warning)' }}>${totalCacheWCost.toFixed(2)}</span></div>
         </div>
 
         <div className="mt-3 text-[20px] font-bold text-center" style={{ color: 'var(--hud-accent)' }}>
           ${allTime.estimated_cost_usd.toFixed(2)}
         </div>
         <div className="text-[13px] text-center" style={{ color: 'var(--hud-text-dim)' }}>
-          estimated all-time ({byModel.length} models)
+          总计预估 ({byModel.length} 个模型)
         </div>
       </Panel>
 
       {/* Per-model breakdown */}
       {byModel.length > 0 && (
-        <Panel title={`By Model — ${byModel.length} models`} className="col-span-full">
+        <Panel title={`按模型 — ${byModel.length} 个模型`} className="col-span-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
             {byModel.map((m: any) => (
               <ModelCard key={m.model} m={m} />
@@ -142,10 +142,10 @@ export default function TokenCostsPanel() {
 
       {/* Daily trend */}
       {dailyTrend.length > 0 && (
-        <Panel title="Daily Cost Trend" className="col-span-full">
+        <Panel title="每日成本趋势" className="col-span-full">
           <div className="mb-3">
             <div className="text-[13px] uppercase tracking-wider mb-1" style={{ color: 'var(--hud-text-dim)' }}>
-              Cost/day (USD)
+              每日成本 (美元)
             </div>
             <Sparkline values={costValues} width={800} height={50} />
           </div>

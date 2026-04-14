@@ -54,7 +54,7 @@ export default function Composer({ onSend, onCancel, isStreaming, model, disable
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={disabled ? 'Chat not available' : 'Type a message...'}
+          placeholder={disabled ? '聊天不可用' : '输入消息...'}
           disabled={isStreaming || disabled}
           rows={1}
           className="flex-1 px-2 py-1.5 text-[13px] resize-none outline-none"
@@ -76,9 +76,9 @@ export default function Composer({ onSend, onCancel, isStreaming, model, disable
               border: 'none',
               minHeight: '32px',
             }}
-            title="Stop generation"
+            title="停止生成"
           >
-            ■ Stop
+            ■ 停止
           </button>
         ) : (
           <button
@@ -92,7 +92,7 @@ export default function Composer({ onSend, onCancel, isStreaming, model, disable
               minHeight: '32px',
             }}
           >
-            Send
+            发送
           </button>
         )}
       </div>
@@ -102,7 +102,7 @@ export default function Composer({ onSend, onCancel, isStreaming, model, disable
       >
         <span>{model !== 'unknown' ? model : ''}</span>
         <span style={{ color: isStreaming ? 'var(--hud-warning)' : 'var(--hud-text-dim)' }}>
-          {isStreaming ? '● streaming' : 'Enter to send · Shift+Enter newline'}
+          {isStreaming ? '● 生成中' : '回车发送 · Shift+Enter换行'}
         </span>
       </div>
     </div>

@@ -41,7 +41,7 @@ function CopyButton({ text }: { text: string }) {
         border: '1px solid var(--hud-border)',
       }}
     >
-      {copied ? 'Copied!' : 'Copy'}
+      {copied ? '已复制!' : '复制'}
     </button>
   )
 }

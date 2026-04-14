@@ -24,7 +24,7 @@ export default function SessionSidebar({
         style={{ borderColor: 'var(--hud-border)' }}
       >
         <span className="text-[11px] uppercase tracking-widest" style={{ color: 'var(--hud-text-dim)' }}>
-          Sessions
+          会话
         </span>
         <button
           onClick={onCreate}
@@ -36,7 +36,7 @@ export default function SessionSidebar({
             opacity: loading ? 0.5 : 1,
           }}
         >
-          + New
+          + 新建
         </button>
       </div>
 
@@ -44,9 +44,9 @@ export default function SessionSidebar({
       <div className="flex-1 overflow-y-auto">
         {sessions.length === 0 ? (
           <div className="p-3 text-[12px]" style={{ color: 'var(--hud-text-dim)' }}>
-            No active sessions.
+            暂无活动会话。
             <br />
-            Click "+ New" to start chatting.
+            点击 "+ 新建" 开始聊天。
           </div>
         ) : (
           sessions.map((session) => (
@@ -71,7 +71,7 @@ export default function SessionSidebar({
                   ●
                 </span>
                 {session.backend_type}
-                {!session.is_active && ' (ended)'}
+                {!session.is_active && ' (已结束)'}
               </div>
             </button>
           ))
