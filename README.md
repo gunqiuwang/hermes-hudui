@@ -2,9 +2,9 @@
 
 一个基于浏览器的AI代理监控仪表盘（汉化版），提供完整的中文界面，优化标签布局和视觉样式，便于中文用户监控AI代理状态和活动。
 
-![代理成本](assets/dashboard-costs.png)
+![代理成本](assets/dashboard-costs.jpg)
 
-![代理配置](assets/profiles.png)
+![代理配置](assets/profiles.jpg)
 
 ## 快速开始
 
